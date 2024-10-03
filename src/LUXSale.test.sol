@@ -1,9 +1,93 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@safe-global/safe-contracts/contracts/Safe.sol";
+import "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol";
+import "@safe-global/safe-contracts/contracts/common/Enum.sol";
+import "./LUXSale.sol";
+
+contract SafeUser {
+    Safe public safe;
+
+    function addSafe(Safe _safe) external {
+        safe = _safe;
+    }
+
+    function doConfirm(uint256 id) external {
+        safe.approveHash(bytes32(id));
+    }
+}
+
+contract SafeTests {
+    TestableLUXSale public sale;
+    SafeUser public user1;
+    SafeUser public user2;
+    Safe public safe;
+
+    function setUp() external {
+        string memory x = "founderKey";
+
+        sale = new TestableLUXSale(
+            5,
+            156.25 ether,
+            block.timestamp,
+            block.timestamp + 1 days,
+            10 ether,
+            x
+        );
+
+        sale.addTime(1 days);
+
+        user1 = new SafeUser();
+        user2 = new SafeUser();
+
+
+        address[3] memory members;
+        members[0] = address(user1);
+        members[1] = address(user2);
+        members[2] = address(this);
+
+        // Create safe wallet with members using SafeProxyFactory
+        SafeProxyFactory proxyFactory = new SafeProxyFactory();
+        bytes memory safeSetupData = abi.encodeWithSignature(
+            "setup(address[],uint256,address,bytes,address,address,uint256,address)",
+            members,
+            2,
+            address(0),
+            "",
+            address(0),
+            address(0),
+            0,
+            address(0)
+        );
+        Safe setupSafe = Safe(payable(proxyFactory.createProxy(address(new Safe()), safeSetupData)));
+
+        safe = setupSafe;
+        user1.addSafe(safe);
+        user2.addSafe(safe);
+    }
+
+    function testRegister() public {
+        bytes memory encodedData = abi.encodeWithSignature("register(string)", "abc");
+
+        bool success = safe.execTransaction(
+            address(sale),
+            0,
+            encodedData,
+            Enum.Operation.Call,
+            0,
+            0,
+            0,
+            payable(0),
+            payable(0),
+            ""
+        );
+        require(success, "Transaction failed");
+    }
+}
 
 contract TestUser is ReentrancyGuard {
     TestableLUXSale public sale;
@@ -38,7 +122,7 @@ contract TestUser is ReentrancyGuard {
     }
 }
 
-contract TestOwner is Ownable {
+contract TestOwner is Ownable, ReentrancyGuard {
     TestableLUXSale public sale;
 
     constructor(TestableLUXSale _sale) {
@@ -194,56 +278,5 @@ contract LUXSalePreInitTests {
     function testFailTokenAuthority() public {
         ERC20Burnable LUX = new ERC20Burnable();
         sale.initialize(LUX);
-    }
-}
-
-contract MultisigUser {
-    MultiSigWallet public multisig;
-
-    function addMultisig(MultiSigWallet _multisig) external {
-        multisig = _multisig;
-    }
-
-    function doConfirm(uint256 id) external {
-        multisig.confirmTransaction(id);
-    }
-}
-
-contract MultisigTests {
-    TestableLUXSale public sale;
-    MultisigUser public user1;
-    MultisigUser public user2;
-    MultiSigWallet public multisig;
-
-    function setUp() external {
-        string memory x = "founderKey";
-
-        sale = new TestableLUXSale(
-            5,
-            156.25 ether,
-            block.timestamp,
-            block.timestamp + 1 days,
-            10 ether,
-            x
-        );
-
-        sale.addTime(block.timestamp + 1);
-
-        user1 = new MultisigUser();
-        user2 = new MultisigUser();
-
-        address;
-        members[0] = address(user1);
-        members[1] = address(user2);
-        members[2] = address(this);
-
-        multisig = new MultiSigWallet(members, 2);
-        user1.addMultisig(multisig);
-    }
-
-    function testRegister() public {
-        bytes memory calldata = abi.encodeWithSignature("register(string)", "abc");
-        uint256 id = multisig.submitTransaction(address(sale), 0, calldata);
-        user1.doConfirm(id);
     }
 }

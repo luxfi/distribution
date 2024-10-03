@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "./LUXSale.sol"; // Assume you have migrated the LUXSale contract to Solidity ^0.8.x
 

@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 
 contract LUXSale is Ownable, ReentrancyGuard {
-    using SafeMath for uint256;
-
     ERC20Burnable public LUX;            // The LUX token itself
     uint256 public totalSupply;          // Total LUX amount created
     uint256 public foundersAllocation;   // Amount given to founders

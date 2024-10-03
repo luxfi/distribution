@@ -1,49 +1,98 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import "@nomicfoundation/hardhat-verify";
-import dotenv from 'dotenv';
+import '@nomiclabs/hardhat-ethers'
+import '@nomicfoundation/hardhat-verify'
+import 'hardhat-typechain'
+import 'hardhat-watcher'
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const PRIVATE_KEY: string = process.env.PRIVATE_KEY!;
-const SEPOLIA_RPC: string = process.env.SEPOLIA_RPC!;
-const BASE_RPC: string = process.env.BASE_RPC!;
-const BSC_TESTNET_RPC: string = process.env.BSC_TESTNET_RPC!;
-const LUX_MAINNET_RPC: string = process.env.LUX_MAINNET_RPC!;
-const LUX_TESTNET_RPC: string = process.env.LUX_TESTNET_RPC!;
+const LOW_OPTIMIZER_COMPILER_SETTINGS = {
+  version: '0.8.20',
+  settings: {
+    evmVersion: 'istanbul',
+    optimizer: {
+      enabled: true,
+      runs: 5,
+    },
+    metadata: {
+      bytecodeHash: 'none',
+    },
+  },
+}
 
-const config: HardhatUserConfig = {
-  solidity: "0.8.20",
+const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
+  version: '0.8.20',
+  settings: {
+    evmVersion: 'istanbul',
+    optimizer: {
+      enabled: true,
+      runs: 5,
+    },
+    metadata: {
+      bytecodeHash: 'none',
+    },
+  },
+}
+
+const DEFAULT_COMPILER_SETTINGS = {
+  version: '0.8.20',
+  settings: {
+    evmVersion: 'istanbul',
+    optimizer: {
+      enabled: true,
+      runs: 5,
+    },
+    metadata: {
+      bytecodeHash: 'none',
+    },
+  },
+}
+
+export default {
   networks: {
-    sepolia: {
-      url: SEPOLIA_RPC,
-      accounts: [`0x${PRIVATE_KEY}`],
+    hardhat: {
+      allowUnlimitedContractSize: false,
     },
-    bsc_testnet: {
-      url: BSC_TESTNET_RPC,
-      accounts: [`0x${PRIVATE_KEY}`],
+    mainnet: {
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
-    base: {
-      url: BASE_RPC,
-      accounts: [`0x${PRIVATE_KEY}`],
+    ropsten: {
+      url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    goerli: {
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    kovan: {
+      url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    arbitrumRinkeby: {
+      url: `https://arbitrum-rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    arbitrum: {
+      url: `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    optimismKovan: {
+      url: `https://optimism-kovan.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    optimism: {
+      url: `https://optimism-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     lux: {
-      url: LUX_MAINNET_RPC,
-      accounts: [`0x${PRIVATE_KEY}`],
+      url: "https://api.lux.network/",
+      accounts: [process.env.PRIVATE_KEY ?? ""],
     },
-    "lux-test": {
-      url: LUX_TESTNET_RPC,
-      accounts: [`0x${PRIVATE_KEY}`]
+    lux_testnet: {
+      url: "https://api.lux-test.network",
+      accounts: [process.env.PRIVATE_KEY ?? ""],
     }
   },
   etherscan: {
-    apiKey: {
-      sepolia: process.env.ETHERSCAN_API_KEY!,
-      bsc: process.env.BSCSCAN_API_KEY!,
-      bscTestnet: process.env.BSCSCAN_API_KEY!,
-      lux: "your API key", // Leave empty if not applicable
-      "lux-test": "your API key" // Leave empty if not applicable
-    },
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey:  "15B6F1WNW4Q8YND5TY64I378A36AXT188A",
     customChains: [
       {
         network: "lux",
@@ -54,7 +103,7 @@ const config: HardhatUserConfig = {
         }
       },
       {
-        network: "lux-test",
+        network: "lux_testnet",
         chainId: 8888,
         urls: {
           apiURL: "https://api.explore.lux-test.network/api",
@@ -63,9 +112,28 @@ const config: HardhatUserConfig = {
       },
     ]
   },
-  sourcify: {
-    enabled: false,
+  solidity: {
+    compilers: [DEFAULT_COMPILER_SETTINGS],
+    overrides: {
+      'contracts/NonfungiblePositionManager.sol': LOW_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/test/MockTimeNonfungiblePositionManager.sol': LOW_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/test/NFTDescriptorTest.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/NonfungibleTokenPositionDescriptor.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/libraries/NFTDescriptor.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+    },
   },
-};
+  watcher: {
+    test: {
+      tasks: [{ command: 'test', params: { testFiles: ['{path}'] } }],
+      files: ['./test/**/*'],
+      verbose: true,
+    },
+  },
+  paths: {
+    sources: "./src", // Change this line to point to your src folder
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts",
+  },
+}
 
-export default config;
