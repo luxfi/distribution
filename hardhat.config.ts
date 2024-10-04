@@ -1,38 +1,13 @@
-import '@nomiclabs/hardhat-ethers'
+import '@typechain/hardhat'
+import '@nomicfoundation/hardhat-ethers'
+import '@nomicfoundation/hardhat-chai-matchers'
 import '@nomicfoundation/hardhat-verify'
-import 'hardhat-typechain'
 import 'hardhat-watcher'
 import * as dotenv from "dotenv";
 
+import { HardhatUserConfig } from 'hardhat/types'
+
 dotenv.config();
-
-const LOW_OPTIMIZER_COMPILER_SETTINGS = {
-  version: '0.8.20',
-  settings: {
-    evmVersion: 'istanbul',
-    optimizer: {
-      enabled: true,
-      runs: 5,
-    },
-    metadata: {
-      bytecodeHash: 'none',
-    },
-  },
-}
-
-const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
-  version: '0.8.20',
-  settings: {
-    evmVersion: 'istanbul',
-    optimizer: {
-      enabled: true,
-      runs: 5,
-    },
-    metadata: {
-      bytecodeHash: 'none',
-    },
-  },
-}
 
 const DEFAULT_COMPILER_SETTINGS = {
   version: '0.8.20',
@@ -40,15 +15,18 @@ const DEFAULT_COMPILER_SETTINGS = {
     evmVersion: 'istanbul',
     optimizer: {
       enabled: true,
-      runs: 5,
+      runs: 200,
     },
     metadata: {
       bytecodeHash: 'none',
     },
+    debug: {
+      revertStrings: "strip", // Strips revert strings to reduce contract size
+    },
   },
 }
 
-export default {
+const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false,
@@ -114,13 +92,10 @@ export default {
   },
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
-    overrides: {
-      'contracts/NonfungiblePositionManager.sol': LOW_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/test/MockTimeNonfungiblePositionManager.sol': LOW_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/test/NFTDescriptorTest.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/NonfungibleTokenPositionDescriptor.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/libraries/NFTDescriptor.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-    },
+  },
+  typechain: {
+    outDir: "types",
+    target: "ethers-v6",
   },
   watcher: {
     test: {
@@ -137,3 +112,4 @@ export default {
   },
 }
 
+export default config

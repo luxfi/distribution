@@ -2,12 +2,12 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@safe-global/safe-contracts/contracts/Safe.sol";
 import "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol";
 import "@safe-global/safe-contracts/contracts/common/Enum.sol";
 import "./LUXSale.sol";
+import "./LUXToken.sol";
 
 contract SafeUser {
     Safe public safe;
@@ -36,7 +36,9 @@ contract SafeTests {
             block.timestamp,
             block.timestamp + 1 days,
             10 ether,
-            x
+            x,
+            0.00011 ether, // basePrice
+            1              // priceIncreaseRate
         );
 
         sale.addTime(1 days);
@@ -44,8 +46,7 @@ contract SafeTests {
         user1 = new SafeUser();
         user2 = new SafeUser();
 
-
-        address[3] memory members;
+        address[] memory members = new address[](3);
         members[0] = address(user1);
         members[1] = address(user2);
         members[2] = address(this);
@@ -63,7 +64,11 @@ contract SafeTests {
             0,
             address(0)
         );
-        Safe setupSafe = Safe(payable(proxyFactory.createProxy(address(new Safe()), safeSetupData)));
+
+        uint256 saltNonce = 0; // Use an appropriate salt nonce
+        SafeProxy safeProxy = proxyFactory.createProxyWithNonce(address(new Safe()), safeSetupData, saltNonce);
+        address safeAddress = address(safeProxy);
+        Safe setupSafe = Safe(payable(safeAddress));
 
         safe = setupSafe;
         user1.addSafe(safe);
@@ -105,7 +110,8 @@ contract TestUser is ReentrancyGuard {
 
     function doBuyWithLimit(uint256 wad, uint256 window, uint256 limit) external payable nonReentrant {
         require(msg.value == wad, "Value mismatch");
-        sale.buyWithLimit{value: msg.value}(window, limit);
+        uint256 currentPrice = sale.getCurrentPriceFloor(window);
+        sale.buyWithLimit{value: msg.value}(window, limit, currentPrice);
     }
 
     function doClaim(uint256 window) external nonReentrant {
@@ -125,7 +131,7 @@ contract TestUser is ReentrancyGuard {
 contract TestOwner is Ownable, ReentrancyGuard {
     TestableLUXSale public sale;
 
-    constructor(TestableLUXSale _sale) {
+    constructor(TestableLUXSale _sale) Ownable(msg.sender) {
         sale = _sale;
     }
 
@@ -145,9 +151,20 @@ contract TestableLUXSale is LUXSale {
         uint256 _openTime,
         uint256 _startTime,
         uint256 _foundersAllocation,
-        string memory _foundersKey
+        string memory _foundersKey,
+        uint256 _basePrice,
+        uint256 _priceIncreaseRate
     )
-        LUXSale(_numberOfDays, _totalSupply, _openTime, _startTime, _foundersAllocation, _foundersKey)
+        LUXSale(
+            _numberOfDays,
+            _totalSupply,
+            _openTime,
+            _startTime,
+            _foundersAllocation,
+            _foundersKey,
+            _basePrice,
+            _priceIncreaseRate
+        )
     {}
 
     function time() public view override returns (uint256) {
@@ -161,7 +178,7 @@ contract TestableLUXSale is LUXSale {
 
 contract LUXSaleTest {
     TestableLUXSale public sale;
-    ERC20Burnable public LUX;
+    LUXToken public LUX;
     TestUser public user1;
     TestUser public user2;
     TestOwner public owner;
@@ -170,7 +187,7 @@ contract LUXSaleTest {
     function setUp() external {
         string memory x = "founderKey";
 
-        LUX = new ERC20Burnable();
+        LUX = new LUXToken("LUX Token", "LUX");
         window = 0;
 
         sale = new TestableLUXSale(
@@ -179,7 +196,9 @@ contract LUXSaleTest {
             block.timestamp,
             block.timestamp + 1 days,
             10 ether,
-            x
+            x,
+            0.00011 ether, // basePrice
+            1              // priceIncreaseRate
         );
 
         sale.initialize(LUX);
@@ -215,21 +234,25 @@ contract LUXSaleTest {
     }
 
     function testBuyWithLimit() public {
-        sale.buyWithLimit{value: 1 ether}(0, 2 ether);
+        uint256 currentPrice = sale.getCurrentPriceFloor(0);
+        sale.buyWithLimit{value: 1 ether}(0, 2 ether, currentPrice);
     }
 
     function testFailBuyOverLimit() public {
         user1.doBuy(1 ether);
-        sale.buyWithLimit{value: 1 ether}(0, 1.5 ether);
+        uint256 currentPrice = sale.getCurrentPriceFloor(0);
+        sale.buyWithLimit{value: 1 ether}(0, 1.5 ether, currentPrice);
     }
 
     function testBuyLaterWindow() public {
-        sale.buyWithLimit{value: 1 ether}(3, 2 ether);
+        uint256 currentPrice = sale.getCurrentPriceFloor(3);
+        sale.buyWithLimit{value: 1 ether}(3, 2 ether, currentPrice);
     }
 
     function testFailBuyTooLate() public {
         addTime();
-        sale.buyWithLimit{value: 1 ether}(0, 0);
+        uint256 currentPrice = sale.getCurrentPriceFloor(0);
+        sale.buyWithLimit{value: 1 ether}(0, 0, currentPrice);
     }
 
     function testBuyFirstDay() public {
@@ -267,7 +290,9 @@ contract LUXSalePreInitTests {
             block.timestamp,
             block.timestamp + 1 days,
             10 ether,
-            x
+            x,
+            0.00011 ether, // basePrice
+            1              // priceIncreaseRate
         );
 
         user1 = new TestUser(sale);
@@ -276,7 +301,7 @@ contract LUXSalePreInitTests {
     }
 
     function testFailTokenAuthority() public {
-        ERC20Burnable LUX = new ERC20Burnable();
+        LUXToken LUX = new LUXToken("LUX Token", "LUX");
         sale.initialize(LUX);
     }
 }
