@@ -1,19 +1,21 @@
-import type { Config } from "tailwindcss";
+import { preset } from '@luxfi/ui/tailwind'
 
-const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+export default {
+  presets: [preset],
+  content: {
+    files: [
+      'src/**/*.tsx',
+      './node_modules/@luxfi/ui/**/*.{ts,tsx}',
+      './node_modules/@hanzo/**/*.{ts,tsx}'
+    ]
+  },
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+          white: "#ffffff",
+          black: "#000000",
+          gray: "#e5e7eb",
+      }
     },
-  },
-  plugins: [],
-};
-export default config;
+  }
+}
