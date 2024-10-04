@@ -2,7 +2,7 @@ let LUX_SALE        = "0xd0a6e6c54dbc68db5db3a091b171a77407ff7ccf"
 let LUX_SALE_UTIL   = "0x860fd485f533b0348e413e65151f7ee993f93c02"
 let LUX_TOKEN       = "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0"
 
-let luxSale, LUXToken
+let LUXSale, LUXToken
 
 let startTime       = 1498914000
 let startMoment     = moment(startTime * 1000)
@@ -50,7 +50,7 @@ addEventListener("mousemove", event => lux_ecc.key_utils.addEntropy(
 
 onload = () => {
   if (window.web3) {
-    luxSale  = web3.eth.contract(LUX_SALE_ABI).at(LUX_SALE)
+    LUXSale  = web3.eth.contract(LUX_SALE_ABI).at(LUX_SALE)
     LUXToken = web3.eth.contract(LUX_TOKEN_ABI).at(LUX_TOKEN)
 
     poll()
@@ -521,7 +521,7 @@ function buy() {
   byId("buy-button").classList.add("hidden")
   byId("buy-progress").classList.remove("hidden")
   let amount = getValue("buy-input").replace(/,/g, "")
-  luxSale.buyWithLimit(state.buyWindow, 0, {
+  LUXSale.buyWithLimit(state.buyWindow, 0, {
     value: web3.toWei(amount)
   }, hopefully(result =>
     ping(result).then(() => {
@@ -537,7 +537,7 @@ function claim() {
   byId("claim-button").classList.add("hidden")
   disable("claim-button")
   byId("claim-progress").classList.remove("hidden")
-  luxSale.claimAll({
+  LUXSale.claimAll({
     gas: 2000000,
   }, hopefully(result => ping(result).then(() => {
     byId("claim-button").classList.remove("hidden")
@@ -613,7 +613,7 @@ function generateCancel(e) {
 function register() {
   const key = privateKeyPair.pubkey
   show("register-progress")
-  luxSale.register(key, {
+  LUXSale.register(key, {
     gas: 1000000,
   }, hopefully(result => ping(result).then(() => {
     hidePanes()
