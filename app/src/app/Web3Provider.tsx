@@ -1,33 +1,33 @@
 'use client';
+import { createConfig } from '@wagmi/core';
+import {mainnet, sepolia} from '@wagmi/core/chains'
+import { WagmiProvider, http } from 'wagmi';
 
-import { WagmiConfig, createConfig, configureChains, mainnet } from 'wagmi';
-import { publicProvider } from 'wagmi/providers/public';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { luxMainnet, luxTestnet, luxDevnet, luxChaosnet } from './luxChains';
 
-const { chains, publicClient } = configureChains(
-  [luxMainnet, luxTestnet, luxDevnet, luxChaosnet, mainnet],
-  [publicProvider()]
-);
+
 
 const queryClient = new QueryClient();
 
-const config = createConfig(
-  getDefaultConfig({
-    autoConnect: true,
-    publicClient,
-    appName: 'Lux App',
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID, // required for WalletConnect 2.0
-  })
-);
-
-export const Web3Provider = ({ children }) => {
+const config = createConfig({
+  chains: [luxMainnet, luxTestnet, luxDevnet, luxChaosnet, mainnet, sepolia],
+  transports: {
+    [luxMainnet.id]: http(),
+    [luxTestnet.id]: http(),
+    [luxDevnet.id]: http(),
+    [luxChaosnet.id]: http(),
+    [mainnet.id]: http(),
+    [sepolia.id]: http()
+  }
+});
+export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <WagmiConfig config={config}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider>{children}</ConnectKitProvider>
       </QueryClientProvider>
-    </WagmiConfig>
+    </WagmiProvider>
   );
 };
