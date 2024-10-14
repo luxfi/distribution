@@ -1,0 +1,77 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract LUXSale",
+        "name": "_sale",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "dailyTotals",
+    "outputs": [
+      {
+        "internalType": "uint256[369]",
+        "name": "result",
+        "type": "uint256[369]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sale",
+    "outputs": [
+      {
+        "internalType": "contract LUXSale",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "userBuys",
+    "outputs": [
+      {
+        "internalType": "uint256[369]",
+        "name": "result",
+        "type": "uint256[369]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "userClaims",
+    "outputs": [
+      {
+        "internalType": "bool[369]",
+        "name": "result",
+        "type": "bool[369]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

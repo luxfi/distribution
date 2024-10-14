@@ -19,6 +19,7 @@
     "@wagmi/core": "^2.13.8",
     "connectkit": "^1.8.2",
     "install": "^0.13.0",
+    "lucide-react": "^0.451.0",
     "moment": "^2.30.1",
     "next": "14.2.14",
     "npm": "^10.9.0",

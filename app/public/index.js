@@ -416,17 +416,17 @@ let render = ({
           </td>
         </tr>
         <tr>
-          <th>Send ETH</th>
+          <th>Send Any Currency</th>
           <td style={{ textAlign: "left" }}>
             <input type="text" required id="buy-input"
                    placeholder={formatETH(eth_balance.div(WAD))}/>
             {" ETH"}
             <span style={{ marginLeft: "1.5rem" }}>
               <button id="buy-button">
-                Send ETH
+                Send
               </button>
               <span id="buy-progress" className="hidden">
-                Sending ETH...
+                Sending ...
               </span>
             </span>
           </td>
