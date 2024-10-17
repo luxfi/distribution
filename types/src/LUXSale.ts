@@ -26,101 +26,67 @@ import type {
 export interface LUXSaleInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "LUX"
-      | "basePrice"
-      | "buy"
-      | "buyWithLimit"
+      | "WLUXToken"
+      | "acceptedTokens"
+      | "addLiquidity"
       | "claim"
-      | "claimAll"
-      | "claimed"
-      | "collect"
-      | "createFirstDay"
-      | "createOnDay"
-      | "createPerDay"
-      | "dailyTotals"
-      | "dayFor"
-      | "foundersAllocation"
-      | "foundersKey"
-      | "freeze"
-      | "getCurrentPriceFloor"
+      | "contribute"
+      | "convertToUSD"
+      | "getWindowTotalUSD"
       | "initialize"
-      | "keys"
       | "numberOfDays"
       | "openTime"
       | "owner"
-      | "priceIncreaseRate"
-      | "register"
       | "renounceOwnership"
+      | "setTokenWhitelist"
       | "startTime"
-      | "time"
-      | "today"
-      | "totalSupply"
+      | "tokenContributions"
+      | "tokenToPool"
+      | "tokenWhitelist"
+      | "totalWLUXForSale"
       | "transferOwnership"
+      | "unsoldTokens"
       | "userBuys"
+      | "userContributionsUSD"
+      | "userTotalContributedUSD"
+      | "windowTotals"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
+      | "LogAddToLUXLP"
       | "LogBuy"
       | "LogClaim"
-      | "LogCollect"
-      | "LogFreeze"
-      | "LogRegister"
+      | "LogLiquidity"
       | "OwnershipTransferred"
   ): EventFragment;
 
-  encodeFunctionData(functionFragment: "LUX", values?: undefined): string;
-  encodeFunctionData(functionFragment: "basePrice", values?: undefined): string;
-  encodeFunctionData(functionFragment: "buy", values?: undefined): string;
+  encodeFunctionData(functionFragment: "WLUXToken", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "buyWithLimit",
-    values: [BigNumberish, BigNumberish, BigNumberish]
+    functionFragment: "acceptedTokens",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addLiquidity",
+    values: [BigNumberish, BigNumberish, AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: "claimAll", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "claimed",
-    values: [BigNumberish, AddressLike]
-  ): string;
-  encodeFunctionData(functionFragment: "collect", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "createFirstDay",
-    values?: undefined
+    functionFragment: "contribute",
+    values: [BigNumberish, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "createOnDay",
-    values: [BigNumberish]
+    functionFragment: "convertToUSD",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "createPerDay",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "dailyTotals",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "dayFor",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "foundersAllocation",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "foundersKey",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "freeze", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getCurrentPriceFloor",
+    functionFragment: "getWindowTotalUSD",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "keys", values: [AddressLike]): string;
   encodeFunctionData(
     functionFragment: "numberOfDays",
     values?: undefined
@@ -128,19 +94,28 @@ export interface LUXSaleInterface extends Interface {
   encodeFunctionData(functionFragment: "openTime", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "priceIncreaseRate",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "register", values: [string]): string;
-  encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "startTime", values?: undefined): string;
-  encodeFunctionData(functionFragment: "time", values?: undefined): string;
-  encodeFunctionData(functionFragment: "today", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "totalSupply",
+    functionFragment: "setTokenWhitelist",
+    values: [AddressLike[], AddressLike[]]
+  ): string;
+  encodeFunctionData(functionFragment: "startTime", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "tokenContributions",
+    values: [BigNumberish, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tokenToPool",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tokenWhitelist",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalWLUXForSale",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -148,53 +123,46 @@ export interface LUXSaleInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "unsoldTokens",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "userBuys",
     values: [BigNumberish, AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "userContributionsUSD",
+    values: [BigNumberish, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "userTotalContributedUSD",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "windowTotals",
+    values: [BigNumberish]
+  ): string;
 
-  decodeFunctionResult(functionFragment: "LUX", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "basePrice", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "WLUXToken", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "buyWithLimit",
+    functionFragment: "acceptedTokens",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "addLiquidity",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "claimAll", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "claimed", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "collect", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "contribute", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "createFirstDay",
+    functionFragment: "convertToUSD",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "createOnDay",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "createPerDay",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "dailyTotals",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "dayFor", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "foundersAllocation",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "foundersKey",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "freeze", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getCurrentPriceFloor",
+    functionFragment: "getWindowTotalUSD",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "keys", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "numberOfDays",
     data: BytesLike
@@ -202,39 +170,87 @@ export interface LUXSaleInterface extends Interface {
   decodeFunctionResult(functionFragment: "openTime", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "priceIncreaseRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "register", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "startTime", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "time", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "today", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "totalSupply",
+    functionFragment: "setTokenWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "startTime", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenContributions",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenToPool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalWLUXForSale",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "unsoldTokens",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "userBuys", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "userContributionsUSD",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "userTotalContributedUSD",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "windowTotals",
+    data: BytesLike
+  ): Result;
+}
+
+export namespace LogAddToLUXLPEvent {
+  export type InputTuple = [window: BigNumberish, amount: BigNumberish];
+  export type OutputTuple = [window: bigint, amount: bigint];
+  export interface OutputObject {
+    window: bigint;
+    amount: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace LogBuyEvent {
   export type InputTuple = [
     window: BigNumberish,
     user: AddressLike,
-    amount: BigNumberish
+    token: AddressLike,
+    amount: BigNumberish,
+    usdValue: BigNumberish
   ];
-  export type OutputTuple = [window: bigint, user: string, amount: bigint];
+  export type OutputTuple = [
+    window: bigint,
+    user: string,
+    token: string,
+    amount: bigint,
+    usdValue: bigint
+  ];
   export interface OutputObject {
     window: bigint;
     user: string;
+    token: string;
     amount: bigint;
+    usdValue: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -260,34 +276,21 @@ export namespace LogClaimEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace LogCollectEvent {
-  export type InputTuple = [amount: BigNumberish];
-  export type OutputTuple = [amount: bigint];
+export namespace LogLiquidityEvent {
+  export type InputTuple = [
+    window: BigNumberish,
+    tokenAmount: BigNumberish,
+    token: AddressLike
+  ];
+  export type OutputTuple = [
+    window: bigint,
+    tokenAmount: bigint,
+    token: string
+  ];
   export interface OutputObject {
-    amount: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LogFreezeEvent {
-  export type InputTuple = [];
-  export type OutputTuple = [];
-  export interface OutputObject {}
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LogRegisterEvent {
-  export type InputTuple = [user: AddressLike, key: string];
-  export type OutputTuple = [user: string, key: string];
-  export interface OutputObject {
-    user: string;
-    key: string;
+    window: bigint;
+    tokenAmount: bigint;
+    token: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -351,55 +354,37 @@ export interface LUXSale extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  LUX: TypedContractMethod<[], [string], "view">;
+  WLUXToken: TypedContractMethod<[], [string], "view">;
 
-  basePrice: TypedContractMethod<[], [bigint], "view">;
+  acceptedTokens: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
-  buy: TypedContractMethod<[], [void], "payable">;
-
-  buyWithLimit: TypedContractMethod<
-    [day: BigNumberish, limit: BigNumberish, currentPrice: BigNumberish],
+  addLiquidity: TypedContractMethod<
+    [window: BigNumberish, tokenAmount: BigNumberish, token: AddressLike],
     [void],
-    "payable"
+    "nonpayable"
   >;
 
-  claim: TypedContractMethod<[day: BigNumberish], [void], "nonpayable">;
+  claim: TypedContractMethod<[window: BigNumberish], [void], "nonpayable">;
 
-  claimAll: TypedContractMethod<[], [void], "nonpayable">;
-
-  claimed: TypedContractMethod<
-    [arg0: BigNumberish, arg1: AddressLike],
-    [boolean],
-    "view"
+  contribute: TypedContractMethod<
+    [window: BigNumberish, token: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
   >;
 
-  collect: TypedContractMethod<[], [void], "nonpayable">;
-
-  createFirstDay: TypedContractMethod<[], [bigint], "view">;
-
-  createOnDay: TypedContractMethod<[day: BigNumberish], [bigint], "view">;
-
-  createPerDay: TypedContractMethod<[], [bigint], "view">;
-
-  dailyTotals: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
-
-  dayFor: TypedContractMethod<[timestamp: BigNumberish], [bigint], "view">;
-
-  foundersAllocation: TypedContractMethod<[], [bigint], "view">;
-
-  foundersKey: TypedContractMethod<[], [string], "view">;
-
-  freeze: TypedContractMethod<[], [void], "nonpayable">;
-
-  getCurrentPriceFloor: TypedContractMethod<
-    [day: BigNumberish],
+  convertToUSD: TypedContractMethod<
+    [token: AddressLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
 
-  initialize: TypedContractMethod<[_lux: AddressLike], [void], "nonpayable">;
+  getWindowTotalUSD: TypedContractMethod<
+    [windowIndex: BigNumberish],
+    [bigint],
+    "view"
+  >;
 
-  keys: TypedContractMethod<[arg0: AddressLike], [string], "view">;
+  initialize: TypedContractMethod<[_wlux: AddressLike], [void], "nonpayable">;
 
   numberOfDays: TypedContractMethod<[], [bigint], "view">;
 
@@ -407,19 +392,27 @@ export interface LUXSale extends BaseContract {
 
   owner: TypedContractMethod<[], [string], "view">;
 
-  priceIncreaseRate: TypedContractMethod<[], [bigint], "view">;
-
-  register: TypedContractMethod<[key: string], [void], "nonpayable">;
-
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
+
+  setTokenWhitelist: TypedContractMethod<
+    [tokens: AddressLike[], pools: AddressLike[]],
+    [void],
+    "nonpayable"
+  >;
 
   startTime: TypedContractMethod<[], [bigint], "view">;
 
-  time: TypedContractMethod<[], [bigint], "view">;
+  tokenContributions: TypedContractMethod<
+    [arg0: BigNumberish, arg1: AddressLike],
+    [bigint],
+    "view"
+  >;
 
-  today: TypedContractMethod<[], [bigint], "view">;
+  tokenToPool: TypedContractMethod<[arg0: AddressLike], [string], "view">;
 
-  totalSupply: TypedContractMethod<[], [bigint], "view">;
+  tokenWhitelist: TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+
+  totalWLUXForSale: TypedContractMethod<[], [bigint], "view">;
 
   transferOwnership: TypedContractMethod<
     [newOwner: AddressLike],
@@ -427,9 +420,29 @@ export interface LUXSale extends BaseContract {
     "nonpayable"
   >;
 
+  unsoldTokens: TypedContractMethod<[window: BigNumberish], [bigint], "view">;
+
   userBuys: TypedContractMethod<
+    [window: BigNumberish, user: AddressLike],
+    [bigint],
+    "view"
+  >;
+
+  userContributionsUSD: TypedContractMethod<
     [arg0: BigNumberish, arg1: AddressLike],
     [bigint],
+    "view"
+  >;
+
+  userTotalContributedUSD: TypedContractMethod<
+    [arg0: AddressLike],
+    [bigint],
+    "view"
+  >;
+
+  windowTotals: TypedContractMethod<
+    [arg0: BigNumberish],
+    [[bigint, bigint] & { totalUSD: bigint; unsoldWLUX: bigint }],
     "view"
   >;
 
@@ -438,70 +451,41 @@ export interface LUXSale extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "LUX"
+    nameOrSignature: "WLUXToken"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "basePrice"
-  ): TypedContractMethod<[], [bigint], "view">;
+    nameOrSignature: "acceptedTokens"
+  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
   getFunction(
-    nameOrSignature: "buy"
-  ): TypedContractMethod<[], [void], "payable">;
-  getFunction(
-    nameOrSignature: "buyWithLimit"
+    nameOrSignature: "addLiquidity"
   ): TypedContractMethod<
-    [day: BigNumberish, limit: BigNumberish, currentPrice: BigNumberish],
+    [window: BigNumberish, tokenAmount: BigNumberish, token: AddressLike],
     [void],
-    "payable"
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "claim"
-  ): TypedContractMethod<[day: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<[window: BigNumberish], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "claimAll"
-  ): TypedContractMethod<[], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "claimed"
+    nameOrSignature: "contribute"
   ): TypedContractMethod<
-    [arg0: BigNumberish, arg1: AddressLike],
-    [boolean],
+    [window: BigNumberish, token: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "convertToUSD"
+  ): TypedContractMethod<
+    [token: AddressLike, amount: BigNumberish],
+    [bigint],
     "view"
   >;
   getFunction(
-    nameOrSignature: "collect"
-  ): TypedContractMethod<[], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "createFirstDay"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "createOnDay"
-  ): TypedContractMethod<[day: BigNumberish], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "createPerDay"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "dailyTotals"
-  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "dayFor"
-  ): TypedContractMethod<[timestamp: BigNumberish], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "foundersAllocation"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "foundersKey"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "freeze"
-  ): TypedContractMethod<[], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "getCurrentPriceFloor"
-  ): TypedContractMethod<[day: BigNumberish], [bigint], "view">;
+    nameOrSignature: "getWindowTotalUSD"
+  ): TypedContractMethod<[windowIndex: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "initialize"
-  ): TypedContractMethod<[_lux: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "keys"
-  ): TypedContractMethod<[arg0: AddressLike], [string], "view">;
+  ): TypedContractMethod<[_wlux: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "numberOfDays"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -512,37 +496,72 @@ export interface LUXSale extends BaseContract {
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "priceIncreaseRate"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "register"
-  ): TypedContractMethod<[key: string], [void], "nonpayable">;
-  getFunction(
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setTokenWhitelist"
+  ): TypedContractMethod<
+    [tokens: AddressLike[], pools: AddressLike[]],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "startTime"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "time"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "today"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "totalSupply"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "transferOwnership"
-  ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "userBuys"
+    nameOrSignature: "tokenContributions"
   ): TypedContractMethod<
     [arg0: BigNumberish, arg1: AddressLike],
     [bigint],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "tokenToPool"
+  ): TypedContractMethod<[arg0: AddressLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "tokenWhitelist"
+  ): TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "totalWLUXForSale"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "unsoldTokens"
+  ): TypedContractMethod<[window: BigNumberish], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "userBuys"
+  ): TypedContractMethod<
+    [window: BigNumberish, user: AddressLike],
+    [bigint],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "userContributionsUSD"
+  ): TypedContractMethod<
+    [arg0: BigNumberish, arg1: AddressLike],
+    [bigint],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "userTotalContributedUSD"
+  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "windowTotals"
+  ): TypedContractMethod<
+    [arg0: BigNumberish],
+    [[bigint, bigint] & { totalUSD: bigint; unsoldWLUX: bigint }],
+    "view"
+  >;
 
+  getEvent(
+    key: "LogAddToLUXLP"
+  ): TypedContractEvent<
+    LogAddToLUXLPEvent.InputTuple,
+    LogAddToLUXLPEvent.OutputTuple,
+    LogAddToLUXLPEvent.OutputObject
+  >;
   getEvent(
     key: "LogBuy"
   ): TypedContractEvent<
@@ -558,25 +577,11 @@ export interface LUXSale extends BaseContract {
     LogClaimEvent.OutputObject
   >;
   getEvent(
-    key: "LogCollect"
+    key: "LogLiquidity"
   ): TypedContractEvent<
-    LogCollectEvent.InputTuple,
-    LogCollectEvent.OutputTuple,
-    LogCollectEvent.OutputObject
-  >;
-  getEvent(
-    key: "LogFreeze"
-  ): TypedContractEvent<
-    LogFreezeEvent.InputTuple,
-    LogFreezeEvent.OutputTuple,
-    LogFreezeEvent.OutputObject
-  >;
-  getEvent(
-    key: "LogRegister"
-  ): TypedContractEvent<
-    LogRegisterEvent.InputTuple,
-    LogRegisterEvent.OutputTuple,
-    LogRegisterEvent.OutputObject
+    LogLiquidityEvent.InputTuple,
+    LogLiquidityEvent.OutputTuple,
+    LogLiquidityEvent.OutputObject
   >;
   getEvent(
     key: "OwnershipTransferred"
@@ -587,7 +592,18 @@ export interface LUXSale extends BaseContract {
   >;
 
   filters: {
-    "LogBuy(uint256,address,uint256)": TypedContractEvent<
+    "LogAddToLUXLP(uint256,uint256)": TypedContractEvent<
+      LogAddToLUXLPEvent.InputTuple,
+      LogAddToLUXLPEvent.OutputTuple,
+      LogAddToLUXLPEvent.OutputObject
+    >;
+    LogAddToLUXLP: TypedContractEvent<
+      LogAddToLUXLPEvent.InputTuple,
+      LogAddToLUXLPEvent.OutputTuple,
+      LogAddToLUXLPEvent.OutputObject
+    >;
+
+    "LogBuy(uint256,address,address,uint256,uint256)": TypedContractEvent<
       LogBuyEvent.InputTuple,
       LogBuyEvent.OutputTuple,
       LogBuyEvent.OutputObject
@@ -609,37 +625,15 @@ export interface LUXSale extends BaseContract {
       LogClaimEvent.OutputObject
     >;
 
-    "LogCollect(uint256)": TypedContractEvent<
-      LogCollectEvent.InputTuple,
-      LogCollectEvent.OutputTuple,
-      LogCollectEvent.OutputObject
+    "LogLiquidity(uint256,uint256,address)": TypedContractEvent<
+      LogLiquidityEvent.InputTuple,
+      LogLiquidityEvent.OutputTuple,
+      LogLiquidityEvent.OutputObject
     >;
-    LogCollect: TypedContractEvent<
-      LogCollectEvent.InputTuple,
-      LogCollectEvent.OutputTuple,
-      LogCollectEvent.OutputObject
-    >;
-
-    "LogFreeze()": TypedContractEvent<
-      LogFreezeEvent.InputTuple,
-      LogFreezeEvent.OutputTuple,
-      LogFreezeEvent.OutputObject
-    >;
-    LogFreeze: TypedContractEvent<
-      LogFreezeEvent.InputTuple,
-      LogFreezeEvent.OutputTuple,
-      LogFreezeEvent.OutputObject
-    >;
-
-    "LogRegister(address,string)": TypedContractEvent<
-      LogRegisterEvent.InputTuple,
-      LogRegisterEvent.OutputTuple,
-      LogRegisterEvent.OutputObject
-    >;
-    LogRegister: TypedContractEvent<
-      LogRegisterEvent.InputTuple,
-      LogRegisterEvent.OutputTuple,
-      LogRegisterEvent.OutputObject
+    LogLiquidity: TypedContractEvent<
+      LogLiquidityEvent.InputTuple,
+      LogLiquidityEvent.OutputTuple,
+      LogLiquidityEvent.OutputObject
     >;
 
     "OwnershipTransferred(address,address)": TypedContractEvent<

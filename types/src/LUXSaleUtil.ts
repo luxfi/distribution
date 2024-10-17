@@ -22,7 +22,7 @@ import type {
 
 export interface LUXSaleUtilInterface extends Interface {
   getFunction(
-    nameOrSignature: "dailyTotals" | "sale" | "userBuys" | "userClaims"
+    nameOrSignature: "dailyTotals" | "sale" | "unsoldTokens" | "userBuys"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -31,11 +31,11 @@ export interface LUXSaleUtilInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "sale", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "userBuys",
-    values: [AddressLike]
+    functionFragment: "unsoldTokens",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "userClaims",
+    functionFragment: "userBuys",
     values: [AddressLike]
   ): string;
 
@@ -44,8 +44,11 @@ export interface LUXSaleUtilInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "sale", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "unsoldTokens",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "userBuys", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "userClaims", data: BytesLike): Result;
 }
 
 export interface LUXSaleUtil extends BaseContract {
@@ -95,9 +98,9 @@ export interface LUXSaleUtil extends BaseContract {
 
   sale: TypedContractMethod<[], [string], "view">;
 
-  userBuys: TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
+  unsoldTokens: TypedContractMethod<[], [bigint[]], "view">;
 
-  userClaims: TypedContractMethod<[user: AddressLike], [boolean[]], "view">;
+  userBuys: TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -110,11 +113,11 @@ export interface LUXSaleUtil extends BaseContract {
     nameOrSignature: "sale"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "unsoldTokens"
+  ): TypedContractMethod<[], [bigint[]], "view">;
+  getFunction(
     nameOrSignature: "userBuys"
   ): TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
-  getFunction(
-    nameOrSignature: "userClaims"
-  ): TypedContractMethod<[user: AddressLike], [boolean[]], "view">;
 
   filters: {};
 }

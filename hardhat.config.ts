@@ -70,7 +70,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    apiKey:  "15B6F1WNW4Q8YND5TY64I378A36AXT188A",
+    apiKey: "15B6F1WNW4Q8YND5TY64I378A36AXT188A",
     customChains: [
       {
         network: "lux",
@@ -91,7 +91,42 @@ const config: HardhatUserConfig = {
     ]
   },
   solidity: {
-    compilers: [DEFAULT_COMPILER_SETTINGS],
+    compilers: [
+      {
+        version: '0.8.20',
+        settings: {
+          evmVersion: 'istanbul',
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+          metadata: {
+            bytecodeHash: 'none',
+          },
+          debug: {
+            revertStrings: "strip",
+          },
+        },
+      },
+      {
+        version: '0.7.6',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+      {
+        version: '0.6.6',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    ],
   },
   typechain: {
     outDir: "types",

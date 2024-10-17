@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as openzeppelin from "./@openzeppelin";
-export * as safeGlobal from "./@safe-global";
+export * as uniswap from "./@uniswap";
 export * as src from "./src";

@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.7.6;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./WLUX.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@uniswap/v3-periphery/contracts/libraries/OracleLibrary.sol"; // For TWAP calculations
 import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol"; // Safe token transfers
+import "@uniswap/v3-core/contracts/libraries/TickMath.sol"; // For tick calculations
 
 /**
  * @title LUXSale Contract
@@ -159,7 +160,7 @@ contract LUXSale is Ownable, ReentrancyGuard {
         uint256 priceX96 = uint256(sqrtPriceX96) * uint256(sqrtPriceX96) >> (96 * 2 - 96);
 
         // Adjust for decimals
-        uint8 tokenDecimals = IERC20(token).decimals();
+        uint8 tokenDecimals = ERC20(token).decimals();
         usdValue = (amount * priceX96) / (1 << 96) / (10 ** tokenDecimals);
     }
 
@@ -174,7 +175,7 @@ contract LUXSale is Ownable, ReentrancyGuard {
 
         IUniswapV3Pool pool = IUniswapV3Pool(poolAddress);
 
-        uint32;
+        uint32[] memory secondsAgos = new uint32[](2);
         secondsAgos[0] = _secondsAgo;
         secondsAgos[1] = 0;
 
@@ -190,7 +191,7 @@ contract LUXSale is Ownable, ReentrancyGuard {
         }
 
         // Get the sqrt price from the mean tick
-        sqrtPriceX96 = OracleLibrary.getSqrtRatioAtTick(arithmeticMeanTick);
+        sqrtPriceX96 = TickMath.getSqrtRatioAtTick(arithmeticMeanTick);
     }
 
     /**
@@ -227,5 +228,27 @@ contract LUXSale is Ownable, ReentrancyGuard {
 
         emit LogAddToLUXLP(window, tokenAmount);
         emit LogLiquidity(window, tokenAmount, token);
+    }
+
+    /**
+     * @dev Allows the contract can read totalUSD for given window
+     * @param windowIndex The index of the window.
+     * @return The total USD value of the window.
+     */
+    function getWindowTotalUSD (uint256 windowIndex) external view returns (uint256) {
+        return windowTotals[windowIndex].totalUSD;
+    }
+    /**
+     * @dev Allows the contract can read userBuys for given window and user
+     * @param window days of auction
+     * @param user address of user
+     * @return The total USD value of the window for user.
+     */
+    function userBuys(uint256 window, address user) external view returns (uint256) {
+        return userContributionsUSD[window][user];
+    }
+
+    function unsoldTokens(uint256 window) external view returns (uint256) {
+        return windowTotals[window].unsoldWLUX;
     }
 }

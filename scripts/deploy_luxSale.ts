@@ -1,93 +1,103 @@
-const hre = require("hardhat");
+import { ethers, run } from "hardhat";
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
+  const [deployer] = await ethers.getSigners();
 
   console.log("Deploying contracts with the account:", deployer.address);
 
+  // Deploy ERC20Mock
+  const ERC20Mock = await ethers.getContractFactory("ERC20Mock");
+  const erc20Mock = await ERC20Mock.deploy("MockToken", "MTK", "1000000000");
+  await erc20Mock.waitForDeployment();
+  console.log("ERC20Mock deployed to:", await erc20Mock.getAddress());
+
+  // Deploy WLUX
+  const WLUX = await ethers.getContractFactory("WLUX");
+  const wLUX = await WLUX.deploy(await erc20Mock.getAddress());
+  await wLUX.waitForDeployment();
+  console.log("WLUX deployed to:", await wLUX.getAddress());
+
+  // Deploy LUXShare
+  const LUXShare = await ethers.getContractFactory("LUXShare");
+  const luxShare = await LUXShare.deploy("LUXShare", "LUXS");
+  await luxShare.waitForDeployment();
+  console.log("LUXShare deployed to:", await luxShare.getAddress());
+  
+  // Deploy UniswapV3PoolMock
+  const LUniswapV3Pool = await ethers.getContractFactory("UniswapV3PoolMock");
+  const lUniswapV3Pool = await LUniswapV3Pool.deploy(await wLUX.getAddress(), await luxShare.getAddress());
+  await lUniswapV3Pool.waitForDeployment();
+  console.log("LUniswapV3Pool deployed to:", await lUniswapV3Pool.getAddress());
+
   // Deploy LUXSale
-  const LUXSale = await hre.ethers.getContractFactory("LUXSale");
-  
-  // Set the constructor parameters
-  const numberOfDays = 369;
-  const totalSupply = hre.ethers.parseEther("1000000000000");
-  const openTime = Math.floor(Date.now() / 1000);
-  const startTime = openTime + 86400;
-  const foundersAllocation = hre.ethers.parseEther("100000000000");
-  const foundersKey = "0x9011E888251AB053B7bD1cdB598Db4f9DEd94714";
-  const basePrice = hre.ethers.parseEther("0.00011");
-  const priceIncreaseRate = 1;
-  console.log("current time is: ", openTime)
-
-  const luxSale = await LUXSale.deploy(
-    numberOfDays,
-    totalSupply,
-    openTime,
-    startTime,
-    foundersAllocation,
-    foundersKey,
-    basePrice,
-    priceIncreaseRate
+  const LuxSale = await ethers.getContractFactory("LUXSale");
+  const luxSale = await LuxSale.deploy(
+    369,//number of days
+    ethers.parseEther("1000000"),//TotalLUXForSale
+    Math.floor(Date.now() / 1000), //openTime (current timestamp)
+    Math.floor(Date.now() / 1000) + 3600, //closeTime (current timestamp + 1 hour from now)
   );
-
   await luxSale.waitForDeployment();
-  const luxSaleAddress = await luxSale.getAddress();
-  console.log("LUXSale deployed to:", luxSaleAddress);
+  console.log("LuxSale deployed to:", await luxSale.getAddress());
 
-  // Deploy LUXToken
-  const LUXToken = await hre.ethers.getContractFactory("LUXToken");
-  const luxToken = await LUXToken.deploy("LUX Token", "LUX");
-  await luxToken.waitForDeployment();
-  const luxTokenAddress = await luxToken.getAddress();
-
-  console.log("LUXToken deployed to:", luxTokenAddress);
-
-  // Transfer ownership of LUXToken to LUXSale
-  await luxToken.transferOwnership(luxSaleAddress);
-  
-  // Initialize LUXSale with LUXToken
-  await luxSale.initialize(luxTokenAddress);
-  console.log("LUXSale initialized with LUXToken");
+  // Initialize LUXSale with WLUX
+  await luxSale.initialize(wLUX.getAddress());
+  console.log("LUXSale initialized with WLUX");
 
   // Deploy LUXSaleUtil
-  const LUXSaleUtil = await hre.ethers.getContractFactory("LUXSaleUtil");
-  const luxSaleUtil = await LUXSaleUtil.deploy(luxSaleAddress);
+  const LuxSaleUtil = await ethers.getContractFactory("LUXSaleUtil");
+  const luxSaleUtil = await LuxSaleUtil.deploy(await luxSale.getAddress());
   await luxSaleUtil.waitForDeployment();
-  const luxSaleUtilAddress = await luxSaleUtil.getAddress();
-  console.log("LUXSaleUtil deployed to:", luxSaleUtilAddress);
+  console.log("LuxSaleUtil deployed to:", await luxSaleUtil.getAddress());
 
-  // Verify contracts on Luxscan
-  console.log("Verifying contracts on Luxscan...");
-  await hre.run("verify:verify", {
-    address: luxSaleAddress,
+  // Set token whitelist in LUXSale
+  await luxSale.setTokenWhitelist([erc20Mock.getAddress()], [lUniswapV3Pool.getAddress()]); 
+  console.log("Token whitelist set in LUXSale");
+
+  // Verify contracts
+  console.log("Verifying contracts...");
+
+  await run("verify:verify", {
+    address: await erc20Mock.getAddress(),
+    constructorArguments: ["MockToken", "MTK", "1000000000"],
+  });
+
+  await run("verify:verify", {
+    address: await wLUX.getAddress(),
+    constructorArguments: [await erc20Mock.getAddress()],
+  });
+
+  await run("verify:verify", {
+    address: await luxShare.getAddress(),
+    constructorArguments: ["LUXShare", "LUXS"],
+  });
+
+  await run("verify:verify", {
+    address: await lUniswapV3Pool.getAddress(),
+    constructorArguments: [await wLUX.getAddress(), await luxShare.getAddress()],
+  });
+
+  await run("verify:verify", {
+    address: await luxSale.getAddress(),
     constructorArguments: [
-      numberOfDays,
-      totalSupply,
-      openTime,
-      startTime,
-      foundersAllocation,
-      foundersKey,
-      basePrice,
-      priceIncreaseRate
+      369,
+      ethers.parseEther("1000000"),
+      Math.floor(Date.now() / 1000),
+      Math.floor(Date.now() / 1000) + 3600,
     ],
   });
 
-  await hre.run("verify:verify", {
-    address: luxTokenAddress,
-    constructorArguments: [
-      "LUX Token",
-      "LUX"
-    ],
+  await run("verify:verify", {
+    address: await luxSaleUtil.getAddress(),
+    constructorArguments: [await luxSale.getAddress()],
   });
 
-  await hre.run("verify:verify", {
-    address: luxSaleUtilAddress,
-    constructorArguments: [luxSaleAddress],
-  });
+  console.log("All contracts deployed and verified successfully!");
 }
 
-main().then(() => process.exit(0))
+main()
+  .then(() => process.exit(0))
   .catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+    console.error(error);
+    process.exit(1);
+  });

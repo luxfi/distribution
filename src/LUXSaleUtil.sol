@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.7.6;
 
 import "./LUXSale.sol";
 
@@ -13,7 +13,7 @@ contract LUXSaleUtil {
     // Retrieve daily totals across all 369 auction days
     function dailyTotals() external view returns (uint256[369] memory result) {
         for (uint256 i = 0; i < 369; i++) {
-            result[i] = sale.dailyTotals(i);
+            result[i] = sale.getWindowTotalUSD(i);
         }
     }
 
@@ -25,11 +25,11 @@ contract LUXSaleUtil {
     }
 
     // Retrieve claim status for each day across the entire auction period
-    function userClaims(address user) external view returns (bool[369] memory result) {
-        for (uint256 i = 0; i < 369; i++) {
-            result[i] = sale.claimed(i, user);
-        }
-    }
+    // function userClaims(address user) external view returns (bool[369] memory result) {
+    //     for (uint256 i = 0; i < 369; i++) {
+    //         result[i] = sale.claimed(i, user);
+    //     }
+    // }
 
     // Retrieve remaining tokens to be burned, distributed, or allocated to LP pools
     function unsoldTokens() external view returns (uint256[369] memory result) {

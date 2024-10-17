@@ -18,137 +18,65 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
     getContractFactory(
-      name: "IERC1155Errors",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC1155Errors__factory>;
-    getContractFactory(
-      name: "IERC20Errors",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC20Errors__factory>;
-    getContractFactory(
-      name: "IERC721Errors",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC721Errors__factory>;
-    getContractFactory(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20__factory>;
-    getContractFactory(
-      name: "ERC20Burnable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC20Burnable__factory>;
-    getContractFactory(
-      name: "IERC20Metadata",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC20Metadata__factory>;
     getContractFactory(
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "ReentrancyGuard",
+      name: "IUniswapV3Pool",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ReentrancyGuard__factory>;
+    ): Promise<Contracts.IUniswapV3Pool__factory>;
     getContractFactory(
-      name: "FallbackManager",
+      name: "IUniswapV3PoolActions",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.FallbackManager__factory>;
+    ): Promise<Contracts.IUniswapV3PoolActions__factory>;
     getContractFactory(
-      name: "BaseGuard",
+      name: "IUniswapV3PoolDerivedState",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BaseGuard__factory>;
+    ): Promise<Contracts.IUniswapV3PoolDerivedState__factory>;
     getContractFactory(
-      name: "Guard",
+      name: "IUniswapV3PoolEvents",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Guard__factory>;
+    ): Promise<Contracts.IUniswapV3PoolEvents__factory>;
     getContractFactory(
-      name: "GuardManager",
+      name: "IUniswapV3PoolImmutables",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.GuardManager__factory>;
+    ): Promise<Contracts.IUniswapV3PoolImmutables__factory>;
     getContractFactory(
-      name: "ModuleManager",
+      name: "IUniswapV3PoolOwnerActions",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ModuleManager__factory>;
+    ): Promise<Contracts.IUniswapV3PoolOwnerActions__factory>;
     getContractFactory(
-      name: "OwnerManager",
+      name: "IUniswapV3PoolState",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.OwnerManager__factory>;
+    ): Promise<Contracts.IUniswapV3PoolState__factory>;
     getContractFactory(
-      name: "NativeCurrencyPaymentFallback",
+      name: "ERC20Mock",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.NativeCurrencyPaymentFallback__factory>;
-    getContractFactory(
-      name: "StorageAccessible",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.StorageAccessible__factory>;
-    getContractFactory(
-      name: "IERC165",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC165__factory>;
-    getContractFactory(
-      name: "ISignatureValidator",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ISignatureValidator__factory>;
-    getContractFactory(
-      name: "IProxyCreationCallback",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IProxyCreationCallback__factory>;
-    getContractFactory(
-      name: "IProxy",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IProxy__factory>;
-    getContractFactory(
-      name: "SafeProxy",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SafeProxy__factory>;
-    getContractFactory(
-      name: "SafeProxyFactory",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SafeProxyFactory__factory>;
-    getContractFactory(
-      name: "Safe",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Safe__factory>;
+    ): Promise<Contracts.ERC20Mock__factory>;
     getContractFactory(
       name: "LUXSale",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LUXSale__factory>;
     getContractFactory(
-      name: "LUXSalePreInitTests",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.LUXSalePreInitTests__factory>;
-    getContractFactory(
-      name: "LUXSaleTest",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.LUXSaleTest__factory>;
-    getContractFactory(
-      name: "SafeTests",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SafeTests__factory>;
-    getContractFactory(
-      name: "SafeUser",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SafeUser__factory>;
-    getContractFactory(
-      name: "TestableLUXSale",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TestableLUXSale__factory>;
-    getContractFactory(
-      name: "TestOwner",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TestOwner__factory>;
-    getContractFactory(
-      name: "TestUser",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TestUser__factory>;
-    getContractFactory(
       name: "LUXSaleUtil",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LUXSaleUtil__factory>;
     getContractFactory(
-      name: "LUXToken",
+      name: "LUXShare",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.LUXToken__factory>;
+    ): Promise<Contracts.LUXShare__factory>;
+    getContractFactory(
+      name: "UniswapV3PoolMock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UniswapV3PoolMock__factory>;
+    getContractFactory(
+      name: "WLUX",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WLUX__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -156,307 +84,145 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Ownable>;
     getContractAt(
-      name: "IERC1155Errors",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC1155Errors>;
-    getContractAt(
-      name: "IERC20Errors",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC20Errors>;
-    getContractAt(
-      name: "IERC721Errors",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC721Errors>;
-    getContractAt(
       name: "ERC20",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20>;
-    getContractAt(
-      name: "ERC20Burnable",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC20Burnable>;
-    getContractAt(
-      name: "IERC20Metadata",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC20Metadata>;
     getContractAt(
       name: "IERC20",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "ReentrancyGuard",
+      name: "IUniswapV3Pool",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.ReentrancyGuard>;
+    ): Promise<Contracts.IUniswapV3Pool>;
     getContractAt(
-      name: "FallbackManager",
+      name: "IUniswapV3PoolActions",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.FallbackManager>;
+    ): Promise<Contracts.IUniswapV3PoolActions>;
     getContractAt(
-      name: "BaseGuard",
+      name: "IUniswapV3PoolDerivedState",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.BaseGuard>;
+    ): Promise<Contracts.IUniswapV3PoolDerivedState>;
     getContractAt(
-      name: "Guard",
+      name: "IUniswapV3PoolEvents",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.Guard>;
+    ): Promise<Contracts.IUniswapV3PoolEvents>;
     getContractAt(
-      name: "GuardManager",
+      name: "IUniswapV3PoolImmutables",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.GuardManager>;
+    ): Promise<Contracts.IUniswapV3PoolImmutables>;
     getContractAt(
-      name: "ModuleManager",
+      name: "IUniswapV3PoolOwnerActions",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.ModuleManager>;
+    ): Promise<Contracts.IUniswapV3PoolOwnerActions>;
     getContractAt(
-      name: "OwnerManager",
+      name: "IUniswapV3PoolState",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.OwnerManager>;
+    ): Promise<Contracts.IUniswapV3PoolState>;
     getContractAt(
-      name: "NativeCurrencyPaymentFallback",
+      name: "ERC20Mock",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.NativeCurrencyPaymentFallback>;
-    getContractAt(
-      name: "StorageAccessible",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.StorageAccessible>;
-    getContractAt(
-      name: "IERC165",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC165>;
-    getContractAt(
-      name: "ISignatureValidator",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ISignatureValidator>;
-    getContractAt(
-      name: "IProxyCreationCallback",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IProxyCreationCallback>;
-    getContractAt(
-      name: "IProxy",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IProxy>;
-    getContractAt(
-      name: "SafeProxy",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SafeProxy>;
-    getContractAt(
-      name: "SafeProxyFactory",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SafeProxyFactory>;
-    getContractAt(
-      name: "Safe",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Safe>;
+    ): Promise<Contracts.ERC20Mock>;
     getContractAt(
       name: "LUXSale",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.LUXSale>;
     getContractAt(
-      name: "LUXSalePreInitTests",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.LUXSalePreInitTests>;
-    getContractAt(
-      name: "LUXSaleTest",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.LUXSaleTest>;
-    getContractAt(
-      name: "SafeTests",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SafeTests>;
-    getContractAt(
-      name: "SafeUser",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SafeUser>;
-    getContractAt(
-      name: "TestableLUXSale",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TestableLUXSale>;
-    getContractAt(
-      name: "TestOwner",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TestOwner>;
-    getContractAt(
-      name: "TestUser",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TestUser>;
-    getContractAt(
       name: "LUXSaleUtil",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.LUXSaleUtil>;
     getContractAt(
-      name: "LUXToken",
+      name: "LUXShare",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.LUXToken>;
+    ): Promise<Contracts.LUXShare>;
+    getContractAt(
+      name: "UniswapV3PoolMock",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UniswapV3PoolMock>;
+    getContractAt(
+      name: "WLUX",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WLUX>;
 
     deployContract(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Ownable>;
     deployContract(
-      name: "IERC1155Errors",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC1155Errors>;
-    deployContract(
-      name: "IERC20Errors",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC20Errors>;
-    deployContract(
-      name: "IERC721Errors",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC721Errors>;
-    deployContract(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC20>;
-    deployContract(
-      name: "ERC20Burnable",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ERC20Burnable>;
-    deployContract(
-      name: "IERC20Metadata",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC20Metadata>;
     deployContract(
       name: "IERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
     deployContract(
-      name: "ReentrancyGuard",
+      name: "IUniswapV3Pool",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ReentrancyGuard>;
+    ): Promise<Contracts.IUniswapV3Pool>;
     deployContract(
-      name: "FallbackManager",
+      name: "IUniswapV3PoolActions",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.FallbackManager>;
+    ): Promise<Contracts.IUniswapV3PoolActions>;
     deployContract(
-      name: "BaseGuard",
+      name: "IUniswapV3PoolDerivedState",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.BaseGuard>;
+    ): Promise<Contracts.IUniswapV3PoolDerivedState>;
     deployContract(
-      name: "Guard",
+      name: "IUniswapV3PoolEvents",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Guard>;
+    ): Promise<Contracts.IUniswapV3PoolEvents>;
     deployContract(
-      name: "GuardManager",
+      name: "IUniswapV3PoolImmutables",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.GuardManager>;
+    ): Promise<Contracts.IUniswapV3PoolImmutables>;
     deployContract(
-      name: "ModuleManager",
+      name: "IUniswapV3PoolOwnerActions",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ModuleManager>;
+    ): Promise<Contracts.IUniswapV3PoolOwnerActions>;
     deployContract(
-      name: "OwnerManager",
+      name: "IUniswapV3PoolState",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.OwnerManager>;
+    ): Promise<Contracts.IUniswapV3PoolState>;
     deployContract(
-      name: "NativeCurrencyPaymentFallback",
+      name: "ERC20Mock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.NativeCurrencyPaymentFallback>;
-    deployContract(
-      name: "StorageAccessible",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.StorageAccessible>;
-    deployContract(
-      name: "IERC165",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC165>;
-    deployContract(
-      name: "ISignatureValidator",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureValidator>;
-    deployContract(
-      name: "IProxyCreationCallback",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IProxyCreationCallback>;
-    deployContract(
-      name: "IProxy",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IProxy>;
-    deployContract(
-      name: "SafeProxy",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeProxy>;
-    deployContract(
-      name: "SafeProxyFactory",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeProxyFactory>;
-    deployContract(
-      name: "Safe",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Safe>;
+    ): Promise<Contracts.ERC20Mock>;
     deployContract(
       name: "LUXSale",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LUXSale>;
     deployContract(
-      name: "LUXSalePreInitTests",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXSalePreInitTests>;
-    deployContract(
-      name: "LUXSaleTest",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXSaleTest>;
-    deployContract(
-      name: "SafeTests",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeTests>;
-    deployContract(
-      name: "SafeUser",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeUser>;
-    deployContract(
-      name: "TestableLUXSale",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestableLUXSale>;
-    deployContract(
-      name: "TestOwner",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestOwner>;
-    deployContract(
-      name: "TestUser",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestUser>;
-    deployContract(
       name: "LUXSaleUtil",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LUXSaleUtil>;
     deployContract(
-      name: "LUXToken",
+      name: "LUXShare",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXToken>;
+    ): Promise<Contracts.LUXShare>;
+    deployContract(
+      name: "UniswapV3PoolMock",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV3PoolMock>;
+    deployContract(
+      name: "WLUX",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WLUX>;
 
     deployContract(
       name: "Ownable",
@@ -464,170 +230,80 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Ownable>;
     deployContract(
-      name: "IERC1155Errors",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC1155Errors>;
-    deployContract(
-      name: "IERC20Errors",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC20Errors>;
-    deployContract(
-      name: "IERC721Errors",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC721Errors>;
-    deployContract(
       name: "ERC20",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC20>;
-    deployContract(
-      name: "ERC20Burnable",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ERC20Burnable>;
-    deployContract(
-      name: "IERC20Metadata",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC20Metadata>;
     deployContract(
       name: "IERC20",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
     deployContract(
-      name: "ReentrancyGuard",
+      name: "IUniswapV3Pool",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ReentrancyGuard>;
+    ): Promise<Contracts.IUniswapV3Pool>;
     deployContract(
-      name: "FallbackManager",
+      name: "IUniswapV3PoolActions",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.FallbackManager>;
+    ): Promise<Contracts.IUniswapV3PoolActions>;
     deployContract(
-      name: "BaseGuard",
+      name: "IUniswapV3PoolDerivedState",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.BaseGuard>;
+    ): Promise<Contracts.IUniswapV3PoolDerivedState>;
     deployContract(
-      name: "Guard",
+      name: "IUniswapV3PoolEvents",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Guard>;
+    ): Promise<Contracts.IUniswapV3PoolEvents>;
     deployContract(
-      name: "GuardManager",
+      name: "IUniswapV3PoolImmutables",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.GuardManager>;
+    ): Promise<Contracts.IUniswapV3PoolImmutables>;
     deployContract(
-      name: "ModuleManager",
+      name: "IUniswapV3PoolOwnerActions",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ModuleManager>;
+    ): Promise<Contracts.IUniswapV3PoolOwnerActions>;
     deployContract(
-      name: "OwnerManager",
+      name: "IUniswapV3PoolState",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.OwnerManager>;
+    ): Promise<Contracts.IUniswapV3PoolState>;
     deployContract(
-      name: "NativeCurrencyPaymentFallback",
+      name: "ERC20Mock",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.NativeCurrencyPaymentFallback>;
-    deployContract(
-      name: "StorageAccessible",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.StorageAccessible>;
-    deployContract(
-      name: "IERC165",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IERC165>;
-    deployContract(
-      name: "ISignatureValidator",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureValidator>;
-    deployContract(
-      name: "IProxyCreationCallback",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IProxyCreationCallback>;
-    deployContract(
-      name: "IProxy",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IProxy>;
-    deployContract(
-      name: "SafeProxy",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeProxy>;
-    deployContract(
-      name: "SafeProxyFactory",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeProxyFactory>;
-    deployContract(
-      name: "Safe",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Safe>;
+    ): Promise<Contracts.ERC20Mock>;
     deployContract(
       name: "LUXSale",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LUXSale>;
     deployContract(
-      name: "LUXSalePreInitTests",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXSalePreInitTests>;
-    deployContract(
-      name: "LUXSaleTest",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXSaleTest>;
-    deployContract(
-      name: "SafeTests",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeTests>;
-    deployContract(
-      name: "SafeUser",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SafeUser>;
-    deployContract(
-      name: "TestableLUXSale",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestableLUXSale>;
-    deployContract(
-      name: "TestOwner",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestOwner>;
-    deployContract(
-      name: "TestUser",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TestUser>;
-    deployContract(
       name: "LUXSaleUtil",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LUXSaleUtil>;
     deployContract(
-      name: "LUXToken",
+      name: "LUXShare",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LUXToken>;
+    ): Promise<Contracts.LUXShare>;
+    deployContract(
+      name: "UniswapV3PoolMock",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV3PoolMock>;
+    deployContract(
+      name: "WLUX",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WLUX>;
 
     // default types
     getContractFactory(
