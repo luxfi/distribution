@@ -56,8 +56,8 @@ const Home = () => {
         <ConnectKitButton showBalance={true} />
       </div>
       <Link href="https://bridge.lux.network" target="_blank" className='mt-10 rounded-2xl border w-72 h-10 flex items-center justify-between px-5'>
-        <span className='inline-block font-bold font-heading cursor-default text-muted'>No LTokens?</span>
-        <span className='inline-block font-bold font-heading cursor-default '>Use Lux Bridge</span>
+        <span className='inline-block font-bold font-heading cursor-default text-muted'>No Tokens?</span>
+        <span className='inline-block font-bold font-heading cursor-default '> Use Lux Bridge</span>
       </Link>
       <MainLayout
         contractAddress={contractAddress || ''}
