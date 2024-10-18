@@ -1,35 +1,25 @@
+import React, { type PropsWithChildren } from "react";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import { 
+  RootLayout as RootLayoutCore,
+  viewport as ViewPortCode
+} from '@luxfi/ui/root-layout';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import siteDef from "./site-def";
 
+export const viewport = {...ViewPortCode}
 export const metadata: Metadata = {
   title: "LUX Coin Distribution App",
   description: "LUX is the native currency of Lux Network",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
-}
+const RootLayout: React.FC<PropsWithChildren> = async ({
+  children
+}) =>  (
+  <RootLayoutCore siteDef={siteDef} >
+    {children}
+  </RootLayoutCore>
+)
+
+export default RootLayout

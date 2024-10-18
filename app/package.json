@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hanzo/ui": "^3.8.36",
+    "@luxfi/data": "^1.0.9",
     "@luxfi/ui": "^5.3.17",
     "@mdx-js/loader": "^3.0.1",
     "@next/mdx": "^14.2.14",

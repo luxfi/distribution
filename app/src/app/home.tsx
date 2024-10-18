@@ -50,14 +50,14 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-black text-white flex flex-col items-center">
+    <div className="mt-14 min-h-screen p-8 bg-black text-white flex flex-col items-center">
       <div className='flex justify-between items-center w-full'>
-        <span className='inline-block font-bold font-heading cursor-default lg:text-3xl md:text-[1.8rem]/[1.8rem] tracking-tighter sm:text-lg text-base xl:text-3xl'>LUX</span>
+        <span className='inline-block font-bold font-heading cursor-default lg:text-3xl md:text-[1.8rem]/[1.8rem] tracking-tighter sm:text-lg text-base xl:text-3xl'>LUX distribution app</span>
         <ConnectKitButton showBalance={true} />
       </div>
-      <Link href="https://bridge.lux.network" target="_blank" className='mt-10 rounded-2xl border w-72 h-10 flex items-center justify-between px-5'>
-        <span className='inline-block font-bold font-heading cursor-default text-muted'>No Tokens?</span>
-        <span className='inline-block font-bold font-heading cursor-default '> Use Lux Bridge</span>
+      <Link href="https://bridge.lux.network" target="_blank" className='mt-10 rounded-2xl border h-10 flex items-center justify-between px-5'>
+        <span className='inline-block font-heading cursor-default text-muted text-sm'>No Tokens?</span>
+        <span className='ml-3 inline-block font-heading cursor-default text-sm'> Use Lux Bridge</span>
       </Link>
       <MainLayout
         contractAddress={contractAddress || ''}

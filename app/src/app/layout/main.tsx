@@ -121,19 +121,19 @@ export const MainLayout: FC<Props> = (props) => {
             <div className="flex flex-col items-center xl:items-start xl:flex-row justify-between xl:justify-evenly">
               <div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-center text-xl text-[#747474]">Contract Address</div>
+                  <div className="w-[200px] text-center text-xl text-muted-2">Contract Address</div>
                   <span className="text-xl">{contractAddress}</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-center text-xl text-[#747474]">Ethereum Address</div>
+                  <div className="w-[200px] text-center text-xl text-muted-2">Ethereum Address</div>
                   <span className="text-xl">{ethereumAddress}</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-center text-xl text-[#747474]">public key</div >
+                  <div className="w-[200px] text-center text-xl text-muted-2">public key</div >
                   <span className="text-xl">{publicKey}</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-center text-xl text-[#747474]">Token Balances</div>
+                  <div className="w-[200px] text-center text-xl text-muted-2">Token Balances</div>
                   <span className="text-xl">{tokenBalance} LUX</span>
                 </div>
               </div>
@@ -153,22 +153,22 @@ export const MainLayout: FC<Props> = (props) => {
           <div>
             <h1 className="text-left text-white text-2xl mt-10 mb-5">Get LUX Tokens</h1>
             <div className="w-full flex flex-col xl:flex-row gap-5">
-              <div className="bg-[#1b1b1b] p-10 min-w-[600px]">
-                <p className="text-left text-xl text-[#747474]">1. Select a distribution period to participate in</p>
-                <p className="text-left text-xl text-[#747474]">2. Enter the amount of any currency to send</p>
-                <p className="text-left text-xl text-[#747474]">3. Click <span className="text-white">Send</span></p>
-                <p className="text-left text-xl text-[#747474]">4. Wait for Metamask to load</p>
-                <p className="text-left text-xl text-[#747474]">5. Review the transaction on Metamask</p>
-                <p className="text-left text-xl text-[#747474]">6. Click <span className="text-white">Submit</span> to submit transaction</p>
+              <div className="bg-muted-4 p-10 min-w-[600px]">
+                <p className="text-left text-xl text-muted-2">1. Select a distribution period to participate in</p>
+                <p className="text-left text-xl text-muted-2">2. Enter the amount of any currency to send</p>
+                <p className="text-left text-xl text-muted-2">3. Click <span className="text-white">Send</span></p>
+                <p className="text-left text-xl text-muted-2">4. Wait for Metamask to load</p>
+                <p className="text-left text-xl text-muted-2">5. Review the transaction on Metamask</p>
+                <p className="text-left text-xl text-muted-2">6. Click <span className="text-white">Submit</span> to submit transaction</p>
               </div>
               <div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="flex-none w-[200px] text-left text-xl text-[#747474]">Distribution period</div>
+                  <div className="flex-none w-[200px] text-left text-xl  text-muted-2">Distribution period</div>
                   <Select>
                     <SelectTrigger className="w-[250px] rounded-none">
                       <SelectValue placeholder="Period #172" />
                     </SelectTrigger>
-                    <SelectContent className="z-[100000] bg-[#000] opacity-100 text-white rounded-none">
+                    <SelectContent className="z-[100000] bg-background opacity-100 text-white rounded-none">
                       <SelectGroup>
                         <SelectItem value="1">Period #172</SelectItem>
                         <SelectItem value="2">Period #173</SelectItem>
@@ -179,28 +179,28 @@ export const MainLayout: FC<Props> = (props) => {
                   </Select>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Closing</div>
+                  <div className="w-[200px] text-left text-xl text-muted-2">Closing</div>
                   <span className="text-xl">In 18 hours</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">LUX Distributed</div>
+                  <div className="w-[200px] text-left text-xl text-muted-2">LUX Distributed</div>
                   <span className="text-xl">2,000,000,0000 LUX</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Total USD</div>
+                  <div className="w-[200px] text-left text-xl text-muted-2">Total USD</div>
                   <span className="text-xl">660.83 USD</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Your USD</div>
+                  <div className="w-[200px] text-left text-xl text-muted-2">Your USD</div>
                   <span className="text-xl">0.00 USD</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Effective price</div>
+                  <div className="w-[200px] text-left text-xl text-muted-2">Effective price</div>
                   <span className="text-xl">0.000330419 USD/LUX</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474] flex-none">Send</div>
-                  <Input className="w-[250px] border-none bg-[#1b1b1b] rounded-none text-[#747474]" placeholder="0.00" />
+                  <div className="w-[200px] text-left text-xl text-muted-2 flex-none">Send</div>
+                  <Input className="w-[250px] border-none bg-background rounded-none text-muted-2" placeholder="0.00" />
                   <span>USD</span>
                   <Button className="py-2 px-4 text-sm md:text-base border rounded-full">Send</Button>
                 </div>
