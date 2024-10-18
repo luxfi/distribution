@@ -155,7 +155,7 @@ export const MainLayout: FC<Props> = (props) => {
             <div className="w-full flex flex-col xl:flex-row gap-5">
               <div className="bg-[#1b1b1b] p-10 min-w-[600px]">
                 <p className="text-left text-xl text-[#747474]">1. Select a distribution period to participate in</p>
-                <p className="text-left text-xl text-[#747474]">2. Enter the amount of ETH to send</p>
+                <p className="text-left text-xl text-[#747474]">2. Enter the amount of any currency to send</p>
                 <p className="text-left text-xl text-[#747474]">3. Click <span className="text-white">Send</span></p>
                 <p className="text-left text-xl text-[#747474]">4. Wait for Metamask to load</p>
                 <p className="text-left text-xl text-[#747474]">5. Review the transaction on Metamask</p>
@@ -187,21 +187,21 @@ export const MainLayout: FC<Props> = (props) => {
                   <span className="text-xl">2,000,000,0000 LUX</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Total ETH</div>
-                  <span className="text-xl">660.83 ETH</span>
+                  <div className="w-[200px] text-left text-xl text-[#747474]">Total USD</div>
+                  <span className="text-xl">660.83 USD</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
-                  <div className="w-[200px] text-left text-xl text-[#747474]">Your ETH</div>
-                  <span className="text-xl">0.00 ETH</span>
+                  <div className="w-[200px] text-left text-xl text-[#747474]">Your USD</div>
+                  <span className="text-xl">0.00 USD</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
                   <div className="w-[200px] text-left text-xl text-[#747474]">Effective price</div>
-                  <span className="text-xl">0.000330419 ETH/LUX</span>
+                  <span className="text-xl">0.000330419 USD/LUX</span>
                 </div>
                 <div className="flex flex-col items-center md:flex-row gap-6 justify-start mb-3">
                   <div className="w-[200px] text-left text-xl text-[#747474] flex-none">Send</div>
                   <Input className="w-[250px] border-none bg-[#1b1b1b] rounded-none text-[#747474]" placeholder="0.00" />
-                  <span>ETH</span>
+                  <span>USD</span>
                   <Button className="py-2 px-4 text-sm md:text-base border rounded-full">Send</Button>
                 </div>
               </div>
