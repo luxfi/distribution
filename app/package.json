@@ -34,6 +34,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-social-icons": "^6.18.0",
+    "react-tooltip": "^5.28.0",
     "usehooks-ts": "^3.1.0",
     "viem": "2.x"
   },
