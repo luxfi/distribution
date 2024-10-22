@@ -7,7 +7,7 @@ import { AuthWidget } from '@hanzo/auth/components'
 import { CartPanel, useCommerce } from '@hanzo/commerce'
 import { cn } from '@hanzo/ui/util'
 
-import { BackButton, Logo, Tooltip } from '../..'
+import { BackButton, Logo, Tooltip } from '../../index'
 import DesktopBagCarousel from './desktop-bag-carousel'
 import LinksRow from './policy-links'
 import type CheckoutPanelProps from './checkout-panel-props'
