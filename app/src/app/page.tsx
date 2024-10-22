@@ -1,36 +1,49 @@
 'use client'
 import React from 'react'
 import { createConfig } from '@wagmi/core'
-import { WagmiProvider, http } from 'wagmi'
-import { Header, Footer } from '@luxfi/ui'
+import Header from './layout/components/header'
+import { Footer } from '@luxfi/ui'
 import siteDef from './site-def'
-import { luxMainnet, luxTestnet, luxDevnet, luxChaosnet } from './luxChains'
-import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+//
+//import rainbow
+import '@rainbow-me/rainbowkit/styles.css';
+import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { WagmiProvider } from 'wagmi';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { luxMainnet, luxTestnet, luxDevnet, luxChaosnet } from './luxChains';
+//
 import Home from './home'
 
-const config = createConfig({
+const config = getDefaultConfig({
+  appName: 'Lux ICO Application',
+  projectId: '4ac5eea6b5c5df6d6b28bebff8d5ed4b',
   chains: [luxMainnet, luxTestnet, luxDevnet, luxChaosnet],
-  transports: {
-    [luxMainnet.id]: http(),
-    [luxTestnet.id]: http(),
-    [luxDevnet.id]: http(),
-    [luxChaosnet.id]: http()
-  }
+  ssr: true
 })
+
 
 const queryClient = new QueryClient()
 const Page = () => {
   return (<>
-    <Header siteDef={siteDef} />
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={config}>
-        <ConnectKitProvider>
+        <RainbowKitProvider
+          theme={
+            darkTheme({
+              accentColor: 'white',
+              accentColorForeground: 'black',
+              borderRadius: 'large',
+              overlayBlur: 'small',
+            })
+          }
+        >
+          <Header siteDef={siteDef} />
           <Home />
-        </ConnectKitProvider>
+          <Footer siteDef={siteDef} className='grow-0 w-full lg:mx-auto sm:pt-6 border-t-0 flex flex-col justify-between md:justify-start' />
+        </RainbowKitProvider>
       </WagmiProvider>
     </QueryClientProvider>
-    <Footer siteDef={siteDef} className='grow-0 w-full lg:mx-auto sm:pt-6 border-t-0 flex flex-col justify-between md:justify-start'/>
   </>)
 }
 

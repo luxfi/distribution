@@ -1,7 +1,6 @@
 'use client';
 
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { ConnectKitButton } from 'connectkit';
 import { Button, Select, SelectTrigger, SelectValue, SelectContent, SelectItem, Input } from '@hanzo/ui/primitives';
 import { useState } from 'react';
 import { logo } from './Assets/Icons';
@@ -53,7 +52,6 @@ const Home = () => {
     <div className="mt-14 min-h-screen p-8 bg-black text-white flex flex-col items-center">
       <div className='flex justify-between items-center w-full'>
         <span className='inline-block font-bold font-heading cursor-default lg:text-3xl md:text-[1.8rem]/[1.8rem] tracking-tighter sm:text-lg text-base xl:text-3xl'>LUX distribution app</span>
-        <ConnectKitButton showBalance={true} />
       </div>
       <Link href="https://bridge.lux.network" target="_blank" className='mt-10 rounded-2xl border h-10 flex items-center justify-between px-5'>
         <span className='inline-block font-heading cursor-default text-muted text-sm'>No Tokens?</span>
