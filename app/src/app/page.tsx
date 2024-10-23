@@ -11,14 +11,14 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { luxMainnet, luxTestnet, luxDevnet, luxChaosnet } from './luxChains';
+import { luxMainnet, luxTestnet } from './luxChains';
 //
 import Home from './home'
 
 const config = getDefaultConfig({
   appName: 'Lux ICO Application',
   projectId: '4ac5eea6b5c5df6d6b28bebff8d5ed4b',
-  chains: [luxMainnet, luxTestnet, luxDevnet, luxChaosnet],
+  chains: [luxMainnet, luxTestnet],
   ssr: true
 })
 
