@@ -1,61 +1,25 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@hanzo/ui/primitives"
 
-const luxData = [
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
+const luxData: {
+  period: string
+  LUXDistributed: string
+  totalUSD: string
+  effectivePrice: string
+  closing: string
+  yourUSD: string
+  yourLUX: string
+}[] = []
+for (let i=1; i <= 369; i++){
+  luxData.push({
+    period: `#${i}`,
+    LUXDistributed: "2,000,000",
+    totalUSD: "12,000",
+    effectivePrice: "0.000132",
     closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
-    closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
-    closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
-    closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
-    closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-  {
-    period: "#0",
-    LUXDistributed: "2,000,000 LUX",
-    totalUSD: "12,000 USD",
-    effectivePrice: "0.000132 USD/LUX",
-    closing: "12 hours",
-    yourUSD: "0.00 USD",
-    yourLUX: "0.00 LUX",
-  },
-]
+    yourUSD: "0.00 ",
+    yourLUX: "0.00 ",
+  })
+}
 
 export function LuxDataTable() {
   return (
@@ -75,12 +39,12 @@ export function LuxDataTable() {
         {luxData.map((lux) => (
           <TableRow key={lux.period}>
             <TableCell className="text-right">{lux.period}</TableCell>
-            <TableCell className="text-right">{lux.LUXDistributed}</TableCell>
-            <TableCell className="text-right">{lux.totalUSD}</TableCell>
-            <TableCell className="text-right">{lux.effectivePrice}</TableCell>
+            <TableCell className="text-right">{lux.LUXDistributed} LUX</TableCell>
+            <TableCell className="text-right">{lux.totalUSD} USD</TableCell>
+            <TableCell className="text-right">{lux.effectivePrice} USD/LUX</TableCell>
             <TableCell className="text-right">{lux.closing}</TableCell>
-            <TableCell className="text-right">{lux.yourUSD}</TableCell>
-            <TableCell className="text-right">{lux.yourLUX}</TableCell>
+            <TableCell className="text-right">{lux.yourUSD} USD</TableCell>
+            <TableCell className="text-right">{lux.yourLUX} LUX</TableCell>
           </TableRow>
         ))}
       </TableBody>
