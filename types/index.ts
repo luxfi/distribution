@@ -30,8 +30,12 @@ export type { IUniswapV3PoolState } from "./@uniswap/v3-core/contracts/interface
 export { IUniswapV3PoolState__factory } from "./factories/@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState__factory";
 export type { ERC20Mock } from "./src/ERC20Mock";
 export { ERC20Mock__factory } from "./factories/src/ERC20Mock__factory";
-export type { LUXSale } from "./src/LUXSale";
-export { LUXSale__factory } from "./factories/src/LUXSale__factory";
+export type { IERC20Extended } from "./src/LUXSale.sol/IERC20Extended";
+export { IERC20Extended__factory } from "./factories/src/LUXSale.sol/IERC20Extended__factory";
+export type { IUniswapV3Router } from "./src/LUXSale.sol/IUniswapV3Router";
+export { IUniswapV3Router__factory } from "./factories/src/LUXSale.sol/IUniswapV3Router__factory";
+export type { LUXSale } from "./src/LUXSale.sol/LUXSale";
+export { LUXSale__factory } from "./factories/src/LUXSale.sol/LUXSale__factory";
 export type { LUXSaleUtil } from "./src/LUXSaleUtil";
 export { LUXSaleUtil__factory } from "./factories/src/LUXSaleUtil__factory";
 export type { LUXShare } from "./src/LUXShare";

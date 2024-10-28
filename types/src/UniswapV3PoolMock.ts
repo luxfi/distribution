@@ -26,6 +26,7 @@ export interface UniswapV3PoolMockInterface extends Interface {
       | "mockPrice"
       | "observe"
       | "setMockPrice"
+      | "slot0"
       | "token0"
       | "token1"
   ): FunctionFragment;
@@ -39,6 +40,7 @@ export interface UniswapV3PoolMockInterface extends Interface {
     functionFragment: "setMockPrice",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "slot0", values?: undefined): string;
   encodeFunctionData(functionFragment: "token0", values?: undefined): string;
   encodeFunctionData(functionFragment: "token1", values?: undefined): string;
 
@@ -48,6 +50,7 @@ export interface UniswapV3PoolMockInterface extends Interface {
     functionFragment: "setMockPrice",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "slot0", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token0", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
 }
@@ -114,6 +117,22 @@ export interface UniswapV3PoolMock extends BaseContract {
     "nonpayable"
   >;
 
+  slot0: TypedContractMethod<
+    [],
+    [
+      [bigint, bigint, bigint, bigint, bigint, bigint, boolean] & {
+        sqrtPriceX96: bigint;
+        tick: bigint;
+        observationIndex: bigint;
+        observationCardinality: bigint;
+        observationCardinalityNext: bigint;
+        feeProtocol: bigint;
+        unlocked: boolean;
+      }
+    ],
+    "view"
+  >;
+
   token0: TypedContractMethod<[], [string], "view">;
 
   token1: TypedContractMethod<[], [string], "view">;
@@ -140,6 +159,23 @@ export interface UniswapV3PoolMock extends BaseContract {
   getFunction(
     nameOrSignature: "setMockPrice"
   ): TypedContractMethod<[_mockPrice: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "slot0"
+  ): TypedContractMethod<
+    [],
+    [
+      [bigint, bigint, bigint, bigint, bigint, bigint, boolean] & {
+        sqrtPriceX96: bigint;
+        tick: bigint;
+        observationIndex: bigint;
+        observationCardinality: bigint;
+        observationCardinalityNext: bigint;
+        feeProtocol: bigint;
+        unlocked: boolean;
+      }
+    ],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "token0"
   ): TypedContractMethod<[], [string], "view">;

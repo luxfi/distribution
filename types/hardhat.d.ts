@@ -58,6 +58,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20Mock__factory>;
     getContractFactory(
+      name: "IERC20Extended",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Extended__factory>;
+    getContractFactory(
+      name: "IUniswapV3Router",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IUniswapV3Router__factory>;
+    getContractFactory(
       name: "LUXSale",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LUXSale__factory>;
@@ -134,6 +142,16 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20Mock>;
     getContractAt(
+      name: "IERC20Extended",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Extended>;
+    getContractAt(
+      name: "IUniswapV3Router",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IUniswapV3Router>;
+    getContractAt(
       name: "LUXSale",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -204,6 +222,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC20Mock>;
     deployContract(
+      name: "IERC20Extended",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Extended>;
+    deployContract(
+      name: "IUniswapV3Router",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV3Router>;
+    deployContract(
       name: "LUXSale",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LUXSale>;
@@ -279,6 +305,16 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC20Mock>;
+    deployContract(
+      name: "IERC20Extended",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Extended>;
+    deployContract(
+      name: "IUniswapV3Router",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV3Router>;
     deployContract(
       name: "LUXSale",
       args: any[],

@@ -10,7 +10,7 @@ import { HardhatUserConfig } from 'hardhat/types'
 dotenv.config();
 
 const DEFAULT_COMPILER_SETTINGS = {
-  version: '0.8.20',
+  version: '0.7.6',
   settings: {
     evmVersion: 'istanbul',
     optimizer: {
