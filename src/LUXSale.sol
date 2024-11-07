@@ -132,7 +132,7 @@ contract LUXSale is Ownable, ReentrancyGuard {
         uint256 amount1Desired
     ) external onlyOwner {
         require(token0 != address(0) && token1 != address(0), "Invalid tokens");
-        
+
         TransferHelper.safeTransferFrom(token0, msg.sender, address(this), amount0Desired);
         TransferHelper.safeTransferFrom(token1, msg.sender, address(this), amount1Desired);
 
@@ -162,7 +162,7 @@ contract LUXSale is Ownable, ReentrancyGuard {
         uint32 secondsAgo = 86400;
         uint160 sqrtPriceX96 = getTWAP(poolAddress, secondsAgo);
         uint256 priceX96 = (uint256(sqrtPriceX96) * uint256(sqrtPriceX96)) >> (96 * 2 - 96);
-        
+
         uint8 tokenDecimals = IERC20Extended(token).decimals();
         return (amount * priceX96) / (1 << 96) / (10 ** tokenDecimals);
     }

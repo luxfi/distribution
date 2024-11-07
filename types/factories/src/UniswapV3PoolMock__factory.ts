@@ -9,6 +9,7 @@ import {
 } from "ethers";
 import type {
   Signer,
+  BigNumberish,
   AddressLike,
   ContractDeployTransaction,
   ContractRunner,
@@ -24,26 +25,677 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_token0",
+        name: "factory_",
         type: "address",
       },
       {
         internalType: "address",
-        name: "_token1",
+        name: "token0_",
         type: "address",
+      },
+      {
+        internalType: "address",
+        name: "token1_",
+        type: "address",
+      },
+      {
+        internalType: "uint24",
+        name: "fee_",
+        type: "uint24",
+      },
+      {
+        internalType: "int24",
+        name: "tickSpacing_",
+        type: "int24",
       },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
   {
-    inputs: [],
-    name: "mockPrice",
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickLower",
+        type: "int24",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickUpper",
+        type: "int24",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount",
+        type: "uint128",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount0",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount1",
+        type: "uint256",
+      },
+    ],
+    name: "Burn",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickLower",
+        type: "int24",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickUpper",
+        type: "int24",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount0",
+        type: "uint128",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount1",
+        type: "uint128",
+      },
+    ],
+    name: "Collect",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount0",
+        type: "uint128",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount1",
+        type: "uint128",
+      },
+    ],
+    name: "CollectProtocol",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount0",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount1",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "paid0",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "paid1",
+        type: "uint256",
+      },
+    ],
+    name: "Flash",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint16",
+        name: "observationCardinalityNextOld",
+        type: "uint16",
+      },
+      {
+        indexed: false,
+        internalType: "uint16",
+        name: "observationCardinalityNextNew",
+        type: "uint16",
+      },
+    ],
+    name: "IncreaseObservationCardinalityNext",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint160",
+        name: "sqrtPriceX96",
+        type: "uint160",
+      },
+      {
+        indexed: false,
+        internalType: "int24",
+        name: "tick",
+        type: "int24",
+      },
+    ],
+    name: "Initialize",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickLower",
+        type: "int24",
+      },
+      {
+        indexed: true,
+        internalType: "int24",
+        name: "tickUpper",
+        type: "int24",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "amount",
+        type: "uint128",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount0",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount1",
+        type: "uint256",
+      },
+    ],
+    name: "Mint",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "feeProtocol0Old",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "feeProtocol1Old",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "feeProtocol0New",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "feeProtocol1New",
+        type: "uint8",
+      },
+    ],
+    name: "SetFeeProtocol",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "int256",
+        name: "amount0",
+        type: "int256",
+      },
+      {
+        indexed: false,
+        internalType: "int256",
+        name: "amount1",
+        type: "int256",
+      },
+      {
+        indexed: false,
+        internalType: "uint160",
+        name: "sqrtPriceX96",
+        type: "uint160",
+      },
+      {
+        indexed: false,
+        internalType: "uint128",
+        name: "liquidity",
+        type: "uint128",
+      },
+      {
+        indexed: false,
+        internalType: "int24",
+        name: "tick",
+        type: "int24",
+      },
+    ],
+    name: "Swap",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    name: "burn",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    name: "collect",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    name: "collectProtocol",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "factory",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "fee",
+    outputs: [
+      {
+        internalType: "uint24",
+        name: "",
+        type: "uint24",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "feeGrowthGlobal0X128",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "feeGrowthGlobal1X128",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes",
+        name: "",
+        type: "bytes",
+      },
+    ],
+    name: "flash",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint16",
+        name: "",
+        type: "uint16",
+      },
+    ],
+    name: "increaseObservationCardinalityNext",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint160",
+        name: "sqrtPriceX96_",
+        type: "uint160",
+      },
+    ],
+    name: "initialize",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "liquidity",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxLiquidityPerTick",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "bytes",
+        name: "",
+        type: "bytes",
+      },
+    ],
+    name: "mint",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "observations",
+    outputs: [
+      {
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
+      },
+      {
+        internalType: "int56",
+        name: "",
+        type: "int56",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -76,12 +728,128 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_mockPrice",
-        type: "uint256",
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
+      },
+      {
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "int56",
+        name: "",
+        type: "int56",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+      {
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
       },
     ],
-    name: "setMockPrice",
+    name: "observeSingle",
+    outputs: [
+      {
+        internalType: "int56",
+        name: "",
+        type: "int56",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    name: "positions",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "protocolFees",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "token0Fees",
+        type: "uint128",
+      },
+      {
+        internalType: "uint128",
+        name: "token1Fees",
+        type: "uint128",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    name: "setFeeProtocol",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -92,37 +860,201 @@ const _abi = [
     outputs: [
       {
         internalType: "uint160",
-        name: "sqrtPriceX96",
+        name: "sqrtPriceX96_",
         type: "uint160",
       },
       {
         internalType: "int24",
-        name: "tick",
+        name: "tick_",
         type: "int24",
       },
       {
         internalType: "uint16",
-        name: "observationIndex",
+        name: "observationIndex_",
         type: "uint16",
       },
       {
         internalType: "uint16",
-        name: "observationCardinality",
+        name: "observationCardinality_",
         type: "uint16",
       },
       {
         internalType: "uint16",
-        name: "observationCardinalityNext",
+        name: "observationCardinalityNext_",
         type: "uint16",
       },
       {
         internalType: "uint8",
-        name: "feeProtocol",
+        name: "feeProtocol_",
         type: "uint8",
       },
       {
         internalType: "bool",
-        name: "unlocked",
+        name: "unlocked_",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+    ],
+    name: "snapshotCumulativesInside",
+    outputs: [
+      {
+        internalType: "int56",
+        name: "",
+        type: "int56",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+      {
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+      {
+        internalType: "bytes",
+        name: "",
+        type: "bytes",
+      },
+    ],
+    name: "swap",
+    outputs: [
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "int16",
+        name: "",
+        type: "int16",
+      },
+    ],
+    name: "tickBitmap",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "tickSpacing",
+    outputs: [
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "int24",
+        name: "",
+        type: "int24",
+      },
+    ],
+    name: "ticks",
+    outputs: [
+      {
+        internalType: "uint128",
+        name: "",
+        type: "uint128",
+      },
+      {
+        internalType: "int128",
+        name: "",
+        type: "int128",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "int56",
+        name: "",
+        type: "int56",
+      },
+      {
+        internalType: "uint160",
+        name: "",
+        type: "uint160",
+      },
+      {
+        internalType: "uint32",
+        name: "",
+        type: "uint32",
+      },
+      {
+        internalType: "bool",
+        name: "",
         type: "bool",
       },
     ],
@@ -158,7 +1090,7 @@ const _abi = [
 ] as const;
 
 const _bytecode =
-  "0x60c060405234801561001057600080fd5b506040516104b93803806104b98339818101604052604081101561003357600080fd5b5080516020909101516001600160601b0319606092831b8116608052911b1660a052670de0b6b3a764000060005560805160601c60a05160601c61042f61008a600039806103d2525080610230525061042f6000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c80630dfe1681146100675780633850c7bd1461008b578063883bdbfd146100e4578063c7207e74146101ed578063d21220a714610207578063feca9cc01461020f575b600080fd5b61006f61022e565b604080516001600160a01b039092168252519081900360200190f35b610093610252565b604080516001600160a01b03909816885260029690960b602088015261ffff9485168787015292841660608701529216608085015260ff90911660a0840152151560c0830152519081900360e00190f35b610154600480360360208110156100fa57600080fd5b81019060208101813564010000000081111561011557600080fd5b82018360208201111561012757600080fd5b8035906020019184602083028401116401000000008311171561014957600080fd5b509092509050610266565b604051808060200180602001838103835285818151815260200191508051906020019060200280838360005b83811015610198578181015183820152602001610180565b50505050905001838103825284818151815260200191508051906020019060200280838360005b838110156101d75781810151838201526020016101bf565b5050505090500194505050505060405180910390f35b6101f56103ca565b60408051918252519081900360200190f35b61006f6103d0565b61022c6004803603602081101561022557600080fd5b50356103f4565b005b7f000000000000000000000000000000000000000000000000000000000000000081565b600080549182919060029081908390600190565b606080826102bb576040805162461bcd60e51b815260206004820152601b60248201527f4e656564206174206c65617374206f6e652064617461706f696e740000000000604482015290519081900360640190fd5b8267ffffffffffffffff811180156102d257600080fd5b506040519080825280602002602001820160405280156102fc578160200160208202803683370190505b5091508267ffffffffffffffff8111801561031657600080fd5b50604051908082528060200260200182016040528015610340578160200160208202803683370190505b50905060005b838110156103c25784848281811061035a57fe5b9050602002013563ffffffff1663ffffffff1642036000540283828151811061037f57fe5b602002602001019060060b908160060b815250506000548282815181106103a257fe5b6001600160a01b0390921660209283029190910190910152600101610346565b509250929050565b60005481565b7f000000000000000000000000000000000000000000000000000000000000000081565b60005556fea264697066735822122027c93f1a1686e44da1fbb90bffdb07161fe90f31f47332558e0e175c4357482264736f6c63430007060033";
+  "0x60806040526000805460ff60f01b1916600160f01b17905534801561002357600080fd5b50604051610d12380380610d12833981810160405260a081101561004657600080fd5b508051602082015160408301516060840151608090940151600180546001600160a01b03199081166001600160a01b03968716178255600280548216958716959095178555600380548216969094169590951762ffffff60a01b19908116600160a01b62ffffff98891681029190911762ffffff60b81b1916600160b81b9490960b97909716929092029390931790915560008054600160d81b600160c81b9190951690931790911690931763ffffffff60b81b19161761ffff60d81b19161760ff60e81b1916815560048054670de0b6b3a76400006001600160801b0319909116179055610bd790819061013b90396000f3fe608060405234801561001057600080fd5b50600436106101a95760003560e01c806370cf754a116100f9578063c45a015511610097578063ddca3f4311610071578063ddca3f4314610840578063f30583991461040f578063f30dba9314610860578063f637731d146108e2576101a9565b8063c45a015514610811578063d0c93a7c14610819578063d21220a714610838576101a9565b806385b66729116100d357806385b6672914610638578063883bdbfd14610675578063a34123a71461077c578063a38807f2146107b6576101a9565b806370cf754a1461057d5780637c7fab4a146105855780638206a4d114610610576101a9565b80633850c7bd11610166578063490e6cbc11610140578063490e6cbc146104295780634f1eb3d8146104b3578063514ea4bf146105045780635339c2961461055d576101a9565b80633850c7bd146103545780633c8a7d8d146103ad578063461413191461040f576101a9565b80630dfe1681146101ae578063128acb08146101d25780631a6865021461027f5780631ad8b03b146102a3578063252c09d7146102da57806332148f6714610331575b600080fd5b6101b6610908565b604080516001600160a01b039092168252519081900360200190f35b610266600480360360a08110156101e857600080fd5b6001600160a01b0382358116926020810135151592604082013592606083013516919081019060a081016080820135600160201b81111561022857600080fd5b82018360208201111561023a57600080fd5b803590602001918460018302840111600160201b8311171561025b57600080fd5b509092509050610917565b6040805192835260208301919091528051918290030190f35b610287610925565b604080516001600160801b039092168252519081900360200190f35b6102ab610934565b60405180836001600160801b03168152602001826001600160801b031681526020019250505060405180910390f35b6102f7600480360360208110156102f057600080fd5b503561093a565b6040805163ffffffff909516855260069390930b60208501526001600160a01b039091168383015215156060830152519081900360800190f35b6103526004803603602081101561034757600080fd5b503561ffff16610946565b005b61035c610949565b604080516001600160a01b03909816885260029690960b602088015261ffff9485168787015292841660608701529216608085015260ff90911660a0840152151560c0830152519081900360e00190f35b610266600480360360a08110156103c357600080fd5b6001600160a01b03823516916020810135600290810b92604083013590910b916001600160801b036060820135169181019060a081016080820135600160201b81111561022857600080fd5b61041761099c565b60408051918252519081900360200190f35b6103526004803603608081101561043f57600080fd5b6001600160a01b038235169160208101359160408201359190810190608081016060820135600160201b81111561047557600080fd5b82018360208201111561048757600080fd5b803590602001918460018302840111600160201b831117156104a857600080fd5b5090925090506109a1565b6102ab600480360360a08110156104c957600080fd5b506001600160a01b03813516906020810135600290810b91604081013590910b906001600160801b03606082013581169160800135166109a8565b6105216004803603602081101561051a57600080fd5b50356109b5565b604080516001600160801b0396871681526020810195909552848101939093529084166060840152909216608082015290519081900360a00190f35b6104176004803603602081101561057357600080fd5b503560010b6109c3565b6102876109c9565b6105ea600480360360e081101561059b57600080fd5b5063ffffffff81358116916020810135821691604082013560020b916001600160801b0360608201351691608082013560060b916001600160a01b0360a0820135169160c090910135166109d5565b6040805160069390930b83526001600160a01b0390911660208301528051918290030190f35b6103526004803603604081101561062657600080fd5b5060ff813581169160200135166109e4565b6102ab6004803603606081101561064e57600080fd5b506001600160a01b03813516906001600160801b03602082013581169160400135166109e8565b6106e36004803603602081101561068b57600080fd5b810190602081018135600160201b8111156106a557600080fd5b8201836020820111156106b757600080fd5b803590602001918460208302840111600160201b831117156106d857600080fd5b5090925090506109f3565b604051808060200180602001838103835285818151815260200191508051906020019060200280838360005b8381101561072757818101518382015260200161070f565b50505050905001838103825284818151815260200191508051906020019060200280838360005b8381101561076657818101518382015260200161074e565b5050505090500194505050505060405180910390f35b6102666004803603606081101561079257600080fd5b508035600290810b91602081013590910b90604001356001600160801b03166109e8565b6107e0600480360360408110156107cc57600080fd5b508035600290810b9160200135900b610b20565b6040805160069490940b84526001600160a01b03909216602084015263ffffffff1682820152519081900360600190f35b6101b6610b2b565b610821610b3a565b6040805160029290920b8252519081900360200190f35b6101b6610b4a565b610848610b59565b6040805162ffffff9092168252519081900360200190f35b6108806004803603602081101561087657600080fd5b503560020b610b6b565b604080516001600160801b039099168952600f9790970b602089015287870195909552606087019390935260069190910b60808601526001600160a01b031660a085015263ffffffff1660c0840152151560e083015251908190036101000190f35b610352600480360360208110156108f857600080fd5b50356001600160a01b0316610b7f565b6002546001600160a01b031690565b600080965096945050505050565b6004546001600160801b031690565b60008091565b60008080809193509193565b50565b6000546001600160a01b03811691600160a01b820460020b9161ffff600160b81b8204811692600160c81b8304821692600160d81b81049092169160ff600160e81b8204811692600160f01b9092041690565b600090565b5050505050565b6000809550959350505050565b506000908190819081908190565b50600090565b670de0b6b3a764000090565b60008097509795505050505050565b5050565b600080935093915050565b606080828067ffffffffffffffff81118015610a0e57600080fd5b50604051908082528060200260200182016040528015610a38578160200160208202803683370190505b5092508067ffffffffffffffff81118015610a5257600080fd5b50604051908082528060200260200182016040528015610a7c578160200160208202803683370190505b50915060005b81811015610b1757858582818110610a9657fe5b9050602002013563ffffffff16600060149054906101000a900460020b0260020b848281518110610ac357fe5b602002602001019060060b908160060b8152505060008054906101000a90046001600160a01b0316838281518110610af757fe5b6001600160a01b0390921660209283029190910190910152600101610a82565b50509250929050565b600080809250925092565b6001546001600160a01b031690565b600354600160b81b900460020b90565b6003546001600160a01b031690565b600354600160a01b900462ffffff1690565b600080808080808080919395975091939597565b600080546001600160a01b0319166001600160a01b039290921691909117905556fea2646970667358221220330e31b794269dec1bb1925732e7965566103cab4861ea1d772d3fac9b8b312064736f6c63430007060033";
 
 type UniswapV3PoolMockConstructorParams =
   | [signer?: Signer]
@@ -178,18 +1110,38 @@ export class UniswapV3PoolMock__factory extends ContractFactory {
   }
 
   override getDeployTransaction(
-    _token0: AddressLike,
-    _token1: AddressLike,
+    factory_: AddressLike,
+    token0_: AddressLike,
+    token1_: AddressLike,
+    fee_: BigNumberish,
+    tickSpacing_: BigNumberish,
     overrides?: NonPayableOverrides & { from?: string }
   ): Promise<ContractDeployTransaction> {
-    return super.getDeployTransaction(_token0, _token1, overrides || {});
+    return super.getDeployTransaction(
+      factory_,
+      token0_,
+      token1_,
+      fee_,
+      tickSpacing_,
+      overrides || {}
+    );
   }
   override deploy(
-    _token0: AddressLike,
-    _token1: AddressLike,
+    factory_: AddressLike,
+    token0_: AddressLike,
+    token1_: AddressLike,
+    fee_: BigNumberish,
+    tickSpacing_: BigNumberish,
     overrides?: NonPayableOverrides & { from?: string }
   ) {
-    return super.deploy(_token0, _token1, overrides || {}) as Promise<
+    return super.deploy(
+      factory_,
+      token0_,
+      token1_,
+      fee_,
+      tickSpacing_,
+      overrides || {}
+    ) as Promise<
       UniswapV3PoolMock & {
         deploymentTransaction(): ContractTransactionResponse;
       }

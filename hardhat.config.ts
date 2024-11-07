@@ -3,6 +3,7 @@ import '@nomicfoundation/hardhat-ethers'
 import '@nomicfoundation/hardhat-chai-matchers'
 import '@nomicfoundation/hardhat-verify'
 import 'hardhat-watcher'
+import '@nomicfoundation/hardhat-toolbox'
 import * as dotenv from "dotenv";
 
 import { HardhatUserConfig } from 'hardhat/types'
@@ -74,17 +75,17 @@ const config: HardhatUserConfig = {
     customChains: [
       {
         network: "lux",
-        chainId: 7777,
+        chainId: 96369,
         urls: {
-          apiURL: "https://api.explore.lux.network/api",
+          apiURL: "https://api-explore.lux.network",
           browserURL: "https://explore.lux.network"
         }
       },
       {
         network: "lux_testnet",
-        chainId: 8888,
+        chainId: 96368,
         urls: {
-          apiURL: "https://api.explore.lux-test.network/api",
+          apiURL: "https://api-explore.lux-test.network",
           browserURL: "https://explore.lux-test.network"
         }
       },
@@ -92,22 +93,22 @@ const config: HardhatUserConfig = {
   },
   solidity: {
     compilers: [
-      {
-        version: '0.8.20',
-        settings: {
-          evmVersion: 'istanbul',
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-          metadata: {
-            bytecodeHash: 'none',
-          },
-          debug: {
-            revertStrings: "strip",
-          },
-        },
-      },
+      //{
+      //  version: '0.8.28',
+      //  settings: {
+      //    evmVersion: 'istanbul',
+      //    optimizer: {
+      //      enabled: true,
+      //      runs: 200,
+      //    },
+      //    metadata: {
+      //      bytecodeHash: 'none',
+      //    },
+      //    debug: {
+      //      revertStrings: "strip",
+      //    },
+      //  },
+      //},
       {
         version: '0.7.6',
         settings: {
